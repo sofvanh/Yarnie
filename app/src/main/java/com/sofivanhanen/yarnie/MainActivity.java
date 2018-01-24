@@ -10,6 +10,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // TODO: move this from here
+        GetPatternsTask task = new GetPatternsTask(this);
+        task.execute();
     }
 
     public void makeToast(String text) {
