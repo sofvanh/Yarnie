@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Yarnie</string>
+    
+    <!-- Put API keys here when developing / creating a build. -->
+    <string name="API_username"></string>
+    <string name="API_password"></string>
 </resources>
