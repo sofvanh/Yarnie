@@ -11,9 +11,11 @@ import retrofit2.http.Query;
 
 public interface RavelryApiService {
 
-    // TODO: What we really want is the /patterns/search.json query.
-    // The call below can be used on specific patterns, whose id's we know.
-    @GET("/patterns.json")
-    Call<Object> getPatterns(@Query("ids") Integer id, @Header("Authorization") String authHeader);
+    // This query "/patterns/search.json" can be used just like the Ravelry pattern search,
+    // adding in any parameters. This specific call only uses the search word.
+    @GET("/patterns/search.json")
+    Call<PatternsSearchResult> getPatterns(@Query("query") String searchWord, @Header("Authorization") String authHeader);
+
+    // TODO: Add calls for queries with different parameters
 
 }

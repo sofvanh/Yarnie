@@ -41,10 +41,13 @@ public class GetPatternsTask extends AsyncTask {
             result = "API keys missing";
             return null;
         }
-        Call<Object> call = service.getPatterns(0, authHeader);
+
+        // TODO: No static search word pls
+        String searchWord = "hat";
+        Call<PatternsSearchResult> call = service.getPatterns(searchWord, authHeader);
 
         try {
-            Response<Object> response = call.execute();
+            Response<PatternsSearchResult> response = call.execute();
 
             if (response.isSuccessful()) {
                 result = "Connection established!";
