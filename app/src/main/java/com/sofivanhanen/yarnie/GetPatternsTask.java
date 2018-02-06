@@ -2,6 +2,7 @@ package com.sofivanhanen.yarnie;
 
 import android.os.AsyncTask;
 import android.util.Base64;
+import android.util.Log;
 
 import java.io.IOException;
 
@@ -48,12 +49,10 @@ public class GetPatternsTask extends AsyncTask {
 
         try {
             Response<PatternsSearchResult> response = call.execute();
-
             if (response.isSuccessful()) {
-                result = "Connection established!";
-                // TODO: parse the result
+                // yay success
             } else {
-                result = "Query unsuccessful: " + response.message() + " " + response.code();
+                // oh no
             }
             return response.body();
         } catch (IOException e) {
@@ -63,7 +62,12 @@ public class GetPatternsTask extends AsyncTask {
     }
 
     @Override
-    protected void onPostExecute(Object o) {
-        context.makeToast("Result: " + result);
+    protected void onPostExecute(Object result) {
+        if (result == null || !result.getClass().equals(PatternsSearchResult.class)) {
+            context.handleFailedAsyncTask();
+            Log.e(this.getClass().toString(), "Result was not a PatternsSearchResult object!");
+        } else {
+            context.handleResult((PatternsSearchResult) result);
+        }
     }
 }
