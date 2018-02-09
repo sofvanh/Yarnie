@@ -18,6 +18,7 @@ public class Pattern {
 
     public String getName() { return name; }
 
+    public void setYardage(int yardage) { this.yardage = yardage; }
     public int getYardage() { return yardage; }
 
     public int getYardage_max() { return yardage_max; }

@@ -78,4 +78,11 @@ public class AlgoUtils {
         return findRelevantValues(temp, weights, weights);
 
     }
+
+    // First algorithm that works with Pattern objects
+    // Works same as knapsackWeightOnly method
+    public static Pattern[] patternKnapsackWeightOnly(Pattern[] patterns, int maxYardage) {
+        if (patterns.length == 0 || maxYardage == 0) return new Pattern[0];
+        return new Pattern[0];
+    }
 }
