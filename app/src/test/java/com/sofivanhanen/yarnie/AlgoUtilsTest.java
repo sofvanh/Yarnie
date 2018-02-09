@@ -3,6 +3,7 @@ package com.sofivanhanen.yarnie;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -21,7 +22,7 @@ public class AlgoUtilsTest {
 
     @Test
     public void patternKnapsackWeightOnly_emptyValues() throws Exception {
-        assertEquals(new Pattern[0], AlgoUtils.patternKnapsackWeightOnly(new Pattern[0], 1000));
+        assertEquals(new ArrayList<Pattern>(), AlgoUtils.patternKnapsackWeightOnly(new Pattern[0], 1000));
     }
 
     @Test
@@ -29,7 +30,7 @@ public class AlgoUtilsTest {
         Pattern pattern = new Pattern();
         Pattern[] array = new Pattern[1];
         array[0] = pattern;
-        assertEquals(new Pattern[0], AlgoUtils.patternKnapsackWeightOnly(array, 0));
+        assertEquals(new ArrayList<Pattern>(), AlgoUtils.patternKnapsackWeightOnly(array, 0));
     }
 
     @Test
@@ -48,11 +49,11 @@ public class AlgoUtilsTest {
         array[1] = two;
         array[2] = three;
 
-        Pattern[] correctResult = new Pattern[2];
-        correctResult[0] = one;
-        correctResult[1] = three;
+        ArrayList<Pattern> correctResult = new ArrayList<>();
+        correctResult.add(one);
+        correctResult.add(three);
 
-        Pattern[] result = AlgoUtils.patternKnapsackWeightOnly(array, maxYards);
+        List<Pattern> result = AlgoUtils.patternKnapsackWeightOnly(array, maxYards);
         assertEquals(correctResult, result);
     }
 
