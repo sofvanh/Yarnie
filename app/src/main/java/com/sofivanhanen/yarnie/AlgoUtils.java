@@ -101,7 +101,7 @@ public class AlgoUtils {
     // First algorithm that works with Pattern objects
     // Uses the recursive knapsack algorithm in KKKK (Kisakoodarin käsikirja)
     public static List<Pattern> patternKnapsackWeightOnly(Pattern[] patterns, int maxYardage) {
-        if (patterns.length == 0 || maxYardage == 0) return new ArrayList<>();
+        if (patterns.length == 0 || maxYardage <= 0) return new ArrayList<>();
         List<Pattern> list = recursiveKnapsackWeightOnly(patterns, patterns.length-1, maxYardage);
         return list;
     }
