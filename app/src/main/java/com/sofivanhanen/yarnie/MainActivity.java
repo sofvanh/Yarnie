@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    EditText amountOfYarnEditText;
     ProgressBar progressBar;
     TextView resultTextView;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        amountOfYarnEditText = findViewById(R.id.et_amount_of_yarn);
         progressBar = findViewById(R.id.progress_bar);
         resultTextView = findViewById(R.id.tv_pattern_result);
     }
@@ -31,9 +33,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void handleClick(View v) {
-        // TODO: Get EditText values and start AsyncTask on them
-        progressBar.setVisibility(View.VISIBLE);
         if (task != null) return;
+        String amount = amountOfYarnEditText.getText().toString();
+        if (amount.toString().equals("")) {
+            // User didn't input amount of yarn!
+            makeToast("Please give amount of yarn");
+            return;
+        }
+        progressBar.setVisibility(View.VISIBLE);
         task = new GetPatternsTask(this);
         task.execute();
     }
