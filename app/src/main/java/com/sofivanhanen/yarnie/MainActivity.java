@@ -10,6 +10,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sofivanhanen.yarnie.API.GetPatternsTask;
+import com.sofivanhanen.yarnie.API.PatternsSearchResult;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText amountOfYarnEditText;
@@ -33,31 +39,53 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void handleClick(View v) {
-        if (task != null) return;
+        if (task != null) return; // There's a task running already.
         String amount = amountOfYarnEditText.getText().toString();
         if (amount.toString().equals("")) {
             // User didn't input amount of yarn!
             makeToast("Please give amount of yarn");
             return;
         }
+        // Start the API request
         progressBar.setVisibility(View.VISIBLE);
         task = new GetPatternsTask(this);
         task.execute();
     }
 
+    // handleResult is only called after a successful query.
     public void handleResult(PatternsSearchResult result) {
-        StringBuilder string = new StringBuilder();
-        for (Pattern pattern : result.getPatterns()) {
-            string.append(pattern.getName() + "\n");
-        }
+        // TODO: We still need more detailed Pattern objects, and then run the algorithm on them.
         progressBar.setVisibility(View.GONE);
-        setResultText(string.toString());
+        printListOfPatterns(arrayToList(result.getPatterns()));
         task = null;
     }
 
+    // API calls generally return arrays, but algorithms run easier on lists.
+    private List<Pattern> arrayToList(Pattern[] patterns) {
+        ArrayList<Pattern> list = new ArrayList<>();
+        for (Pattern pattern : patterns) {
+            list.add(pattern);
+        }
+        return list;
+    }
+
+    private void printListOfPatterns(List<Pattern> patterns) {
+        StringBuilder string = new StringBuilder();
+        for (Pattern pattern : patterns) {
+            string.append(pattern.getName() + "\n");
+        }
+        setResultText(string.toString());
+    }
+
+    // For general API failures
     public void handleFailedAsyncTask() {
+        handleFailedAsyncTask("Connecting to the API failed.");
+    }
+
+    // For specific API failure messages
+    public void handleFailedAsyncTask(String message) {
         progressBar.setVisibility(View.GONE);
-        makeToast("Connecting to the API failed.");
+        makeToast(message);
         task = null;
     }
 

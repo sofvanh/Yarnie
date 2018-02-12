@@ -1,4 +1,4 @@
-package com.sofivanhanen.yarnie;
+package com.sofivanhanen.yarnie.API;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -13,6 +13,7 @@ public interface RavelryApiService {
 
     // This query "/patterns/search.json" can be used just like the Ravelry pattern search,
     // adding in any parameters. This specific call only uses the search word.
+    // Return a maximum of 100 simple Pattern objects.
     @GET("/patterns/search.json")
     Call<PatternsSearchResult> getPatterns(@Query("query") String searchWord, @Header("Authorization") String authHeader);
 

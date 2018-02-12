@@ -13,26 +13,6 @@ import static org.junit.Assert.assertEquals;
 
 public class AlgoUtilsTest {
 
-    // Making a simple test here for starters
-    // This will have to be changed when the algorithm's functionality is changed.
-    @Test
-    public void knapsackWeightOnly_empty() throws Exception {
-        assertEquals(AlgoUtils.knapsackWeightOnly(new int[0], 0), new ArrayList<>());
-    }
-
-    @Test
-    public void patternKnapsackWeightOnly_emptyValues() throws Exception {
-        assertEquals(new ArrayList<Pattern>(), AlgoUtils.patternKnapsackWeightOnly(new Pattern[0], 1000));
-    }
-
-    @Test
-    public void patternKnapsackWeightOnly_zeroMaxYardage() throws Exception {
-        Pattern pattern = new Pattern();
-        Pattern[] array = new Pattern[1];
-        array[0] = pattern;
-        assertEquals(new ArrayList<Pattern>(), AlgoUtils.patternKnapsackWeightOnly(array, 0));
-    }
-
     // Testing the simplest algorithm - n = 3, x = 10
     @Test
     public void patternKnapsackWeightOnly_easy() throws Exception {
@@ -88,5 +68,7 @@ public class AlgoUtilsTest {
         List<Pattern> result = AlgoUtils.patternKnapsackWeightOnly(array, maxYards);
         assertEquals(correctResult, result);
     }
+
+    // TODO: Performance tests for algorithms
 
 }

@@ -1,8 +1,13 @@
-package com.sofivanhanen.yarnie;
+package com.sofivanhanen.yarnie.API;
 
 import android.os.AsyncTask;
 import android.util.Base64;
 import android.util.Log;
+
+import com.sofivanhanen.yarnie.API.PatternsSearchResult;
+import com.sofivanhanen.yarnie.API.RavelryApiService;
+import com.sofivanhanen.yarnie.MainActivity;
+import com.sofivanhanen.yarnie.R;
 
 import java.io.IOException;
 
@@ -19,7 +24,6 @@ public class GetPatternsTask extends AsyncTask {
 
     // Context to affect UI (show toasts, show/hide progress bar etc.)
     private MainActivity context;
-    private String result;
 
     // We use Retrofit to easily connect to the API.
     Retrofit retrofit = new Retrofit.Builder()
@@ -39,7 +43,7 @@ public class GetPatternsTask extends AsyncTask {
         String keys = context.getString(R.string.API_username) + ":" + context.getString(R.string.API_password);
         String authHeader = "Basic " + Base64.encodeToString(keys.getBytes(), Base64.NO_WRAP);
         if (authHeader.length() == 1) {
-            result = "API keys missing";
+            Log.e(this.getClass().toString(), "API keys missing.");
             return null;
         }
 
@@ -56,7 +60,6 @@ public class GetPatternsTask extends AsyncTask {
             }
             return response.body();
         } catch (IOException e) {
-            result = "IOException";
             return null;
         }
     }
