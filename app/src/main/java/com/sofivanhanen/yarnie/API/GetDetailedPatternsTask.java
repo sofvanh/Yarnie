@@ -48,10 +48,10 @@ public class GetDetailedPatternsTask extends AsyncTask {
             return null;
         }
 
-        Call<Object> call = service.getPatternsById(ids, authHeader);
+        Call<FullPatternsResult> call = service.getPatternsById(ids, authHeader);
 
         try {
-            Response<Object> response = call.execute();
+            Response<FullPatternsResult> response = call.execute();
             if (response.isSuccessful()) {
                 Log.i(this.getClass().toString(), "Response successful!");
             } else {
@@ -66,11 +66,11 @@ public class GetDetailedPatternsTask extends AsyncTask {
 
     @Override
     protected void onPostExecute(Object result) {
-        if (result == null) {
+        if (result == null || !result.getClass().equals(FullPatternsResult.class)) {
             context.handleFailedAsyncTask();
-            Log.e(this.getClass().toString(), "Result was null.");
+            Log.e(this.getClass().toString(), "Result was not a FullPatternsResult object!");
         } else {
-            context.handleResult(result);
+            context.handleResult((FullPatternsResult)result);
         }
     }
 }

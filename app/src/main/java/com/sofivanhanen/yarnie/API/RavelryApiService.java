@@ -21,6 +21,6 @@ public interface RavelryApiService {
     // This query returns detailed Pattern objects.
     // ids should be in form "1+2+3+4"
     @GET("/patterns.json")
-    Call<Object> getPatternsById(@Query("ids") String ids, @Header("Authorization") String authHeader);
+    Call<FullPatternsResult> getPatternsById(@Query("ids") String ids, @Header("Authorization") String authHeader);
 
 }
