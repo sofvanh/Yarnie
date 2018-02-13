@@ -3,6 +3,7 @@ package com.sofivanhanen.yarnie.API;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -17,6 +18,9 @@ public interface RavelryApiService {
     @GET("/patterns/search.json")
     Call<PatternsSearchResult> getPatterns(@Query("query") String searchWord, @Header("Authorization") String authHeader);
 
-    // TODO: Add calls for queries with different parameters
+    // This query returns detailed Pattern objects.
+    // ids should be in form "1+2+3+4"
+    @GET("/patterns.json")
+    Call<Object> getPatternsById(@Query("ids") String ids, @Header("Authorization") String authHeader);
 
 }
