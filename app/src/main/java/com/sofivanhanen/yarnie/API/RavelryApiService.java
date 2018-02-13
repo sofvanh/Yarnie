@@ -15,11 +15,12 @@ public interface RavelryApiService {
     // This query "/patterns/search.json" can be used just like the Ravelry pattern search,
     // adding in any parameters. This specific call only uses the search word.
     // Return a maximum of 100 simple Pattern objects.
+    // TODO: Only look for patterns where yardage is more than 0
     @GET("/patterns/search.json")
     Call<PatternsSearchResult> getPatterns(@Query("query") String searchWord, @Header("Authorization") String authHeader);
 
     // This query returns detailed Pattern objects.
-    // ids should be in form "1+2+3+4"
+    // ids should be in form "1 2 3 4", here it is parsed to "1+2+3+4"
     @GET("/patterns.json")
     Call<FullPatternsResult> getPatternsById(@Query("ids") String ids, @Header("Authorization") String authHeader);
 

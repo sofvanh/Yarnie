@@ -10,6 +10,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sofivanhanen.yarnie.API.FullPatternsResult;
+import com.sofivanhanen.yarnie.API.GetDetailedPatternsTask;
 import com.sofivanhanen.yarnie.API.GetPatternsTask;
 import com.sofivanhanen.yarnie.API.PatternsSearchResult;
 
@@ -53,11 +55,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // handleResult is only called after a successful query.
+    // GetPatternsTask returns PatternsSearchResult.
     public void handleResult(PatternsSearchResult result) {
-        // TODO: We still need more detailed Pattern objects, and then run the algorithm on them.
+        // GetPatternsTask is useful for looking up projects by parameters.
+        // However, the results are insufficient Pattern objects.
+        // They do not contain all the details (for instance, the yardage.)
+        // Therefore, we request new, detailed versions of those patterns,
+        // searching by id.
+        // This is a weakness in the Ravelry API.
+        task = new GetDetailedPatternsTask(this, result.getIdsAsString());
+        task.execute();
+    }
+
+    // GetDetailedPatternsTask returns FullPatternsResult.
+    public void handleResult(FullPatternsResult result) {
         progressBar.setVisibility(View.GONE);
-        printListOfPatterns(arrayToList(result.getPatterns()));
+        printListOfPatterns(result.getPatternsAsList());
         task = null;
+        // TODO: Run patterns through algorithm here.
     }
 
     // API calls generally return arrays, but algorithms run easier on lists.
