@@ -75,15 +75,6 @@ public class MainActivity extends AppCompatActivity {
         // TODO: Run patterns through algorithm here.
     }
 
-    // API calls generally return arrays, but algorithms run easier on lists.
-    private List<Pattern> arrayToList(Pattern[] patterns) {
-        ArrayList<Pattern> list = new ArrayList<>();
-        for (Pattern pattern : patterns) {
-            list.add(pattern);
-        }
-        return list;
-    }
-
     private void printListOfPatterns(List<Pattern> patterns) {
         StringBuilder string = new StringBuilder();
         for (Pattern pattern : patterns) {

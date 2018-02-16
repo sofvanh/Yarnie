@@ -1,4 +1,6 @@
-package com.sofivanhanen.yarnie;
+package com.sofivanhanen.yarnie.Utils;
+
+import com.sofivanhanen.yarnie.Pattern;
 
 import java.util.ArrayList;
 import java.util.List;

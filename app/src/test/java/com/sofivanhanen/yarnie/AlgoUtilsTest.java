@@ -1,5 +1,7 @@
 package com.sofivanhanen.yarnie;
 
+import com.sofivanhanen.yarnie.Utils.AlgoUtils;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
