@@ -12,12 +12,12 @@ import retrofit2.http.Query;
 
 public interface RavelryApiService {
 
+    public static final int MAX_NUMBER_OF_PATTERNS = 50;
+
     // This query "/patterns/search.json" can be used just like the Ravelry pattern search,
-    // adding in any parameters. This specific call only uses the search word.
-    // Return a maximum of 100 simple Pattern objects.
-    // TODO: Only look for patterns where yardage is more than 0
+    // adding in any parameters. This specific call uses a search word and defines the number of patterns wanted.
     @GET("/patterns/search.json")
-    Call<PatternsSearchResult> getPatterns(@Query("query") String searchWord, @Header("Authorization") String authHeader);
+    Call<PatternsSearchResult> getPatterns(@Query("query") String searchWord, @Query("page_size") int numberOfPatterns, @Header("Authorization") String authHeader);
 
     // This query returns detailed Pattern objects.
     // ids should be in form "1 2 3 4", here it is parsed to "1+2+3+4"

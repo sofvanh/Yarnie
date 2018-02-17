@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         // Getting the max amount of yarn from the text view; And running the algorithm on them.
         // TODO: Do this on a separate thread
         printListOfPatterns(AlgoUtils.patternKnapsackWeightOnly(
-                MiscUtils.listToArray(result.getPatternsAsList()),
+                MiscUtils.listToArray(result.getPatternsAsList(false)),
                 Integer.parseInt(amountOfYarnEditText.getText().toString())));
         task = null;
     }

@@ -19,10 +19,12 @@ public class FullPatternsResult {
 
     public HashMap<Integer, Pattern> getPatterns() { return patterns; }
 
-    public List<Pattern> getPatternsAsList() {
+    public List<Pattern> getPatternsAsList(boolean include0Yardage) {
         ArrayList<Pattern> result = new ArrayList<>();
         for (Pattern pattern : patterns.values()) {
-            result.add(pattern);
+            if (include0Yardage || pattern.getYardage() > 0) {
+                result.add(pattern);
+            }
         }
         return result;
     }
