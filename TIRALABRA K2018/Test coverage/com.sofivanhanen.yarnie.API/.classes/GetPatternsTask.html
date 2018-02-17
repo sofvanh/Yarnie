@@ -1,0 +1,163 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: GetPatternsTask</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">com.sofivanhanen.yarnie.API</a> ]
+</div>
+
+<h1>Coverage Summary for Class: GetPatternsTask (com.sofivanhanen.yarnie.API)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GetPatternsTask</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 24)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package com.sofivanhanen.yarnie.API;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import android.os.AsyncTask;
+<i>4</i>&nbsp;import android.util.Base64;
+<i>5</i>&nbsp;import android.util.Log;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import com.sofivanhanen.yarnie.API.PatternsSearchResult;
+<i>8</i>&nbsp;import com.sofivanhanen.yarnie.API.RavelryApiService;
+<i>9</i>&nbsp;import com.sofivanhanen.yarnie.MainActivity;
+<i>10</i>&nbsp;import com.sofivanhanen.yarnie.R;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;import java.io.IOException;
+<i>13</i>&nbsp;
+<i>14</i>&nbsp;import retrofit2.Call;
+<i>15</i>&nbsp;import retrofit2.Response;
+<i>16</i>&nbsp;import retrofit2.Retrofit;
+<i>17</i>&nbsp;import retrofit2.converter.gson.GsonConverterFactory;
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;/**
+<i>20</i>&nbsp; * Created by sofvanh on 24/01/18.
+<i>21</i>&nbsp; */
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;public class GetPatternsTask extends AsyncTask {
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    // Context to affect UI (show toasts, show/hide progress bar etc.)
+<i>26</i>&nbsp;    private MainActivity context;
+<i>27</i>&nbsp;    private String yarnWeight;
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    // We use Retrofit to easily connect to the API.
+<b class="nc"><i>30</i>&nbsp;    Retrofit retrofit = new Retrofit.Builder()</b>
+<b class="nc"><i>31</i>&nbsp;            .baseUrl(&quot;https://api.ravelry.com/&quot;)</b>
+<b class="nc"><i>32</i>&nbsp;            .addConverterFactory(GsonConverterFactory.create())</b>
+<b class="nc"><i>33</i>&nbsp;            .build();</b>
+<i>34</i>&nbsp;
+<b class="nc"><i>35</i>&nbsp;    public GetPatternsTask(MainActivity context, String selectedYarnWeight) {</b>
+<b class="nc"><i>36</i>&nbsp;        this.context = context;</b>
+<i>37</i>&nbsp;        // In spinner, we have &#39;Super Bulky&#39; - query takes &#39;super-bulky&#39;
+<b class="nc"><i>38</i>&nbsp;        yarnWeight = selectedYarnWeight.replaceAll(&quot; &quot;, &quot;-&quot;).toLowerCase();</b>
+<i>39</i>&nbsp;    }
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;    @Override
+<i>42</i>&nbsp;    protected Object doInBackground(Object[] objects) {
+<i>43</i>&nbsp;
+<b class="nc"><i>44</i>&nbsp;        RavelryApiService service = retrofit.create(RavelryApiService.class);</b>
+<i>45</i>&nbsp;        // Using HTTP basic authentication
+<b class="nc"><i>46</i>&nbsp;        String keys = context.getString(R.string.API_username) + &quot;:&quot; + context.getString(R.string.API_password);</b>
+<b class="nc"><i>47</i>&nbsp;        String authHeader = &quot;Basic &quot; + Base64.encodeToString(keys.getBytes(), Base64.NO_WRAP);</b>
+<b class="nc"><i>48</i>&nbsp;        if (authHeader.length() == 1) {</b>
+<b class="nc"><i>49</i>&nbsp;            Log.e(this.getClass().toString(), &quot;API keys missing.&quot;);</b>
+<b class="nc"><i>50</i>&nbsp;            return null;</b>
+<i>51</i>&nbsp;        }
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;        // TODO: No static search word pls
+<b class="nc"><i>54</i>&nbsp;        String searchWord = &quot;hat&quot;;</b>
+<b class="nc"><i>55</i>&nbsp;        Call&lt;PatternsSearchResult&gt; call = service.getPatterns(RavelryApiService.NUMBER_OF_COLORS,</b>
+<i>56</i>&nbsp;                RavelryApiService.MAX_NUMBER_OF_PATTERNS, yarnWeight, authHeader);
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;        try {
+<b class="nc"><i>59</i>&nbsp;            Response&lt;PatternsSearchResult&gt; response = call.execute();</b>
+<b class="nc"><i>60</i>&nbsp;            if (response.isSuccessful()) {</b>
+<i>61</i>&nbsp;                // yay success
+<i>62</i>&nbsp;            } else {
+<i>63</i>&nbsp;                // oh no
+<i>64</i>&nbsp;            }
+<b class="nc"><i>65</i>&nbsp;            return response.body();</b>
+<b class="nc"><i>66</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i>67</i>&nbsp;            return null;</b>
+<i>68</i>&nbsp;        }
+<i>69</i>&nbsp;    }
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;    @Override
+<i>72</i>&nbsp;    protected void onPostExecute(Object result) {
+<b class="nc"><i>73</i>&nbsp;        if (result == null || !result.getClass().equals(PatternsSearchResult.class)) {</b>
+<b class="nc"><i>74</i>&nbsp;            context.handleFailedAsyncTask();</b>
+<b class="nc"><i>75</i>&nbsp;            Log.e(this.getClass().toString(), &quot;Result was not a PatternsSearchResult object!&quot;);</b>
+<i>76</i>&nbsp;        } else {
+<b class="nc"><i>77</i>&nbsp;            context.handleResult((PatternsSearchResult) result);</b>
+<i>78</i>&nbsp;        }
+<i>79</i>&nbsp;    }
+<i>80</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2018-02-17 19:41</div>
+</div>
+</body>
+</html>
