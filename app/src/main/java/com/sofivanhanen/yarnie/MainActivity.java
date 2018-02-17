@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         }
         // Start the API request
         progressBar.setVisibility(View.VISIBLE);
-        task = new GetPatternsTask(this);
+        task = new GetPatternsTask(this, (String) yarnWeightSpinner.getSelectedItem());
         task.execute();
     }
 

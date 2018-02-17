@@ -24,6 +24,7 @@ public class GetPatternsTask extends AsyncTask {
 
     // Context to affect UI (show toasts, show/hide progress bar etc.)
     private MainActivity context;
+    private String yarnWeight;
 
     // We use Retrofit to easily connect to the API.
     Retrofit retrofit = new Retrofit.Builder()
@@ -31,8 +32,10 @@ public class GetPatternsTask extends AsyncTask {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    public GetPatternsTask(MainActivity context) {
+    public GetPatternsTask(MainActivity context, String selectedYarnWeight) {
         this.context = context;
+        // In spinner, we have 'Super Bulky' - query takes 'super-bulky'
+        yarnWeight = selectedYarnWeight.replaceAll(" ", "-").toLowerCase();
     }
 
     @Override
@@ -49,7 +52,7 @@ public class GetPatternsTask extends AsyncTask {
 
         // TODO: No static search word pls
         String searchWord = "hat";
-        Call<PatternsSearchResult> call = service.getPatterns(searchWord, RavelryApiService.MAX_NUMBER_OF_PATTERNS, authHeader);
+        Call<PatternsSearchResult> call = service.getPatterns(searchWord, RavelryApiService.MAX_NUMBER_OF_PATTERNS, yarnWeight, authHeader);
 
         try {
             Response<PatternsSearchResult> response = call.execute();
