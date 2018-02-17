@@ -5,8 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     EditText amountOfYarnEditText;
+    Spinner yarnWeightSpinner;
     ProgressBar progressBar;
     TextView resultTextView;
 
@@ -33,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         amountOfYarnEditText = findViewById(R.id.et_amount_of_yarn);
+        yarnWeightSpinner = findViewById(R.id.spinner_yarn_weights);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.yarn_weights_array, R.layout.support_simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        yarnWeightSpinner.setAdapter(adapter);
         progressBar = findViewById(R.id.progress_bar);
         resultTextView = findViewById(R.id.tv_pattern_result);
     }

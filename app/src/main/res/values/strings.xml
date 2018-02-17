@@ -4,4 +4,19 @@
     <!-- Put API keys here when developing / creating a build. -->
     <string name="API_username"></string>
     <string name="API_password"></string>
+
+    <string-array name="yarn_weights_array">
+        <item>Thread</item>
+        <item>Cobweb</item>
+        <item>Lace</item>
+        <item>Light Fingering</item>
+        <item>Fingering</item>
+        <item>Sport</item>
+        <item>DK</item>
+        <item>Worsted</item>
+        <item>Aran</item>
+        <item>Bulky</item>
+        <item>Super Bulky</item>
+        <item>Jumbo</item>
+    </string-array>
 </resources>
