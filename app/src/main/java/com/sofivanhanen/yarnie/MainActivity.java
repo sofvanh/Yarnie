@@ -14,6 +14,8 @@ import com.sofivanhanen.yarnie.API.FullPatternsResult;
 import com.sofivanhanen.yarnie.API.GetDetailedPatternsTask;
 import com.sofivanhanen.yarnie.API.GetPatternsTask;
 import com.sofivanhanen.yarnie.API.PatternsSearchResult;
+import com.sofivanhanen.yarnie.Utils.AlgoUtils;
+import com.sofivanhanen.yarnie.Utils.MiscUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,15 +72,19 @@ public class MainActivity extends AppCompatActivity {
     // GetDetailedPatternsTask returns FullPatternsResult.
     public void handleResult(FullPatternsResult result) {
         progressBar.setVisibility(View.GONE);
-        printListOfPatterns(result.getPatternsAsList());
+        // Getting patterns from result object; Turning that list into an array;
+        // Getting the max amount of yarn from the text view; And running the algorithm on them.
+        // TODO: Do this on a separate thread
+        printListOfPatterns(AlgoUtils.patternKnapsackWeightOnly(
+                MiscUtils.listToArray(result.getPatternsAsList()),
+                Integer.parseInt(amountOfYarnEditText.getText().toString())));
         task = null;
-        // TODO: Run patterns through algorithm here.
     }
 
     private void printListOfPatterns(List<Pattern> patterns) {
         StringBuilder string = new StringBuilder();
         for (Pattern pattern : patterns) {
-            string.append(pattern.getName() + "\n");
+            string.append(pattern.getName() + ", Yardage: " + pattern.getYardage() + "\n");
         }
         setResultText(string.toString());
     }
