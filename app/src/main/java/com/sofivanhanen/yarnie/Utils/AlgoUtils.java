@@ -29,7 +29,7 @@ public class AlgoUtils {
         else return b;
     }
 
-    private static int getTotalYards(List<Pattern> patterns) {
+    public static int getTotalYards(List<Pattern> patterns) {
         int yards = 0;
         for (Pattern pattern : patterns) {
             yards += pattern.getYardage();

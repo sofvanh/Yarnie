@@ -52,7 +52,8 @@ public class GetPatternsTask extends AsyncTask {
 
         // TODO: No static search word pls
         String searchWord = "hat";
-        Call<PatternsSearchResult> call = service.getPatterns(searchWord, RavelryApiService.MAX_NUMBER_OF_PATTERNS, yarnWeight, authHeader);
+        Call<PatternsSearchResult> call = service.getPatterns(RavelryApiService.NUMBER_OF_COLORS,
+                RavelryApiService.MAX_NUMBER_OF_PATTERNS, yarnWeight, authHeader);
 
         try {
             Response<PatternsSearchResult> response = call.execute();

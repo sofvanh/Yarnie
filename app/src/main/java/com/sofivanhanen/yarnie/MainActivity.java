@@ -91,8 +91,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void printListOfPatterns(List<Pattern> patterns) {
         StringBuilder string = new StringBuilder();
-        for (Pattern pattern : patterns) {
-            string.append(pattern.getName() + ", Yardage: " + pattern.getYardage() + "\n");
+        if (patterns.isEmpty()) {
+            string.append("No patterns! Try increasing the amount of yarn.");
+        } else {
+            for (Pattern pattern : patterns) {
+                string.append(pattern.getName() + ", yardage: " + pattern.getYardage() + "\n");
+            }
+            string.append(AlgoUtils.getTotalYards(patterns) + " yards total.");
         }
         setResultText(string.toString());
     }
