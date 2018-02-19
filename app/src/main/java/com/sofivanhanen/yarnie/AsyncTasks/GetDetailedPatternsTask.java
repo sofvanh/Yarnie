@@ -1,10 +1,10 @@
-package com.sofivanhanen.yarnie.API;
+package com.sofivanhanen.yarnie.AsyncTasks;
 
 import android.os.AsyncTask;
 import android.util.Base64;
 import android.util.Log;
 
-import com.sofivanhanen.yarnie.API.PatternsSearchResult;
+import com.sofivanhanen.yarnie.API.FullPatternsResult;
 import com.sofivanhanen.yarnie.API.RavelryApiService;
 import com.sofivanhanen.yarnie.MainActivity;
 import com.sofivanhanen.yarnie.R;
@@ -17,14 +17,15 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by sofvanh on 24/01/18.
+ * Created by sofvanh on 13/02/18.
  */
 
-public class GetPatternsTask extends AsyncTask {
+public class GetDetailedPatternsTask extends AsyncTask {
 
     // Context to affect UI (show toasts, show/hide progress bar etc.)
     private MainActivity context;
-    private String yarnWeight;
+    // Pattern ids we're looking for
+    private String ids;
 
     // We use Retrofit to easily connect to the API.
     Retrofit retrofit = new Retrofit.Builder()
@@ -32,10 +33,9 @@ public class GetPatternsTask extends AsyncTask {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    public GetPatternsTask(MainActivity context, String selectedYarnWeight) {
+    public GetDetailedPatternsTask(MainActivity context, String ids) {
         this.context = context;
-        // In spinner, we have 'Super Bulky' - query takes 'super-bulky'
-        yarnWeight = selectedYarnWeight.replaceAll(" ", "-").toLowerCase();
+        this.ids = ids;
     }
 
     @Override
@@ -50,31 +50,29 @@ public class GetPatternsTask extends AsyncTask {
             return null;
         }
 
-        // TODO: No static search word pls
-        String searchWord = "hat";
-        Call<PatternsSearchResult> call = service.getPatterns(RavelryApiService.NUMBER_OF_COLORS,
-                RavelryApiService.MAX_NUMBER_OF_PATTERNS, yarnWeight, authHeader);
+        Call<FullPatternsResult> call = service.getPatternsById(ids, authHeader);
 
         try {
-            Response<PatternsSearchResult> response = call.execute();
+            Response<FullPatternsResult> response = call.execute();
             if (response.isSuccessful()) {
-                // yay success
+                Log.i(this.getClass().toString(), "Response successful!");
             } else {
-                // oh no
+                Log.e(this.getClass().toString(), "Response unsuccessful: " + response.errorBody().string());
             }
             return response.body();
         } catch (IOException e) {
+            Log.e(this.getClass().toString(), e.getMessage());
             return null;
         }
     }
 
     @Override
     protected void onPostExecute(Object result) {
-        if (result == null || !result.getClass().equals(PatternsSearchResult.class)) {
+        if (result == null || !result.getClass().equals(FullPatternsResult.class)) {
             context.handleFailedAsyncTask();
-            Log.e(this.getClass().toString(), "Result was not a PatternsSearchResult object!");
+            Log.e(this.getClass().toString(), "Result was not a FullPatternsResult object!");
         } else {
-            context.handleResult((PatternsSearchResult) result);
+            context.handleResult((FullPatternsResult)result);
         }
     }
 }

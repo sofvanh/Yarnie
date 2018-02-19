@@ -13,13 +13,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sofivanhanen.yarnie.API.FullPatternsResult;
-import com.sofivanhanen.yarnie.API.GetDetailedPatternsTask;
-import com.sofivanhanen.yarnie.API.GetPatternsTask;
+import com.sofivanhanen.yarnie.AsyncTasks.AlgorithmTask;
+import com.sofivanhanen.yarnie.AsyncTasks.GetDetailedPatternsTask;
+import com.sofivanhanen.yarnie.AsyncTasks.GetPatternsTask;
 import com.sofivanhanen.yarnie.API.PatternsSearchResult;
 import com.sofivanhanen.yarnie.Utils.AlgoUtils;
 import com.sofivanhanen.yarnie.Utils.MiscUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -79,13 +79,17 @@ public class MainActivity extends AppCompatActivity {
 
     // GetDetailedPatternsTask returns FullPatternsResult.
     public void handleResult(FullPatternsResult result) {
+        // We run the algorithm on a separate thread so as to not block the UI
+        task = new AlgorithmTask(this,
+                result.getPatternsAsList(false),
+                Integer.parseInt(amountOfYarnEditText.getText().toString()));
+        task.execute();
+    }
+
+    // AlgorithmTask returns a list of patterns.
+    public void handleResult(List<Pattern> result) {
         progressBar.setVisibility(View.GONE);
-        // Getting patterns from result object; Turning that list into an array;
-        // Getting the max amount of yarn from the text view; And running the algorithm on them.
-        // TODO: Do this on a separate thread
-        printListOfPatterns(AlgoUtils.patternKnapsackWeightOnly(
-                MiscUtils.listToArray(result.getPatternsAsList(false)),
-                Integer.parseInt(amountOfYarnEditText.getText().toString())));
+        printListOfPatterns(result);
         task = null;
     }
 
