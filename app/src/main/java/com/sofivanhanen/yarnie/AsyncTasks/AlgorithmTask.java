@@ -3,7 +3,7 @@ package com.sofivanhanen.yarnie.AsyncTasks;
 import android.os.AsyncTask;
 
 import com.sofivanhanen.yarnie.MainActivity;
-import com.sofivanhanen.yarnie.Pattern;
+import com.sofivanhanen.yarnie.Data.Pattern;
 import com.sofivanhanen.yarnie.Utils.AlgoUtils;
 import com.sofivanhanen.yarnie.Utils.MiscUtils;
 

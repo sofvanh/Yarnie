@@ -1,4 +1,4 @@
-package com.sofivanhanen.yarnie;
+package com.sofivanhanen.yarnie.Data;
 
 /**
  * Created by sofvanh on 02/02/18.

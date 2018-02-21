@@ -1,7 +1,7 @@
 package com.sofivanhanen.yarnie.API;
 
 
-import com.sofivanhanen.yarnie.Pattern;
+import com.sofivanhanen.yarnie.Data.Pattern;
 
 import java.util.ArrayList;
 import java.util.HashMap;

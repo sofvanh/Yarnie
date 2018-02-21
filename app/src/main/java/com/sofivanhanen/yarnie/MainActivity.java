@@ -17,8 +17,8 @@ import com.sofivanhanen.yarnie.AsyncTasks.AlgorithmTask;
 import com.sofivanhanen.yarnie.AsyncTasks.GetDetailedPatternsTask;
 import com.sofivanhanen.yarnie.AsyncTasks.GetPatternsTask;
 import com.sofivanhanen.yarnie.API.PatternsSearchResult;
+import com.sofivanhanen.yarnie.Data.Pattern;
 import com.sofivanhanen.yarnie.Utils.AlgoUtils;
-import com.sofivanhanen.yarnie.Utils.MiscUtils;
 
 import java.util.List;
 
