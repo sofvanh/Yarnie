@@ -40,6 +40,7 @@ public class PatternList implements List<Pattern> {
             return false;
         } else {
             for (Pattern pattern : patterns) {
+                if (pattern == null) return false;
                 if (pattern.equals(o)) {
                     return true;
                 }
@@ -71,18 +72,6 @@ public class PatternList implements List<Pattern> {
         };
     }
 
-    @NonNull
-    @Override
-    public Object[] toArray() {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    @NonNull
-    @Override
-    public <T> T[] toArray(@NonNull T[] ts) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
     @Override
     public boolean add(Pattern pattern) {
         if (firstFreeSpot == patterns.length) {
@@ -102,16 +91,40 @@ public class PatternList implements List<Pattern> {
     }
 
     @Override
-    public boolean remove(Object o) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    @Override
     public boolean containsAll(@NonNull Collection<?> collection) {
         for (Object object : collection) {
             if (!contains(object)) return false;
         }
         return true;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (o.getClass() != PatternList.class) return false;
+        else {
+            return containsAll((PatternList) o);
+        }
+    }
+
+    @Override
+    public Pattern get(int i) {
+        return patterns[i];
+    }
+
+    @NonNull
+    @Override
+    public Object[] toArray() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @NonNull
+    @Override
+    public <T> T[] toArray(@NonNull T[] ts) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
@@ -139,22 +152,10 @@ public class PatternList implements List<Pattern> {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o.getClass() != PatternList.class) return false;
-        else {
-            return containsAll((PatternList) o);
-        }
-    }
 
     @Override
     public int hashCode() {
         throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    @Override
-    public Pattern get(int i) {
-        return patterns[i];
     }
 
     @Override
