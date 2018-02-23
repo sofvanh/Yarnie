@@ -70,6 +70,4 @@ public class AlgoUtilsTest {
         assertEquals(correctResult, result);
     }
 
-    // TODO: Performance tests for algorithms
-
 }
