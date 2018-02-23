@@ -1,12 +1,10 @@
 package com.sofivanhanen.yarnie;
 
 import com.sofivanhanen.yarnie.Data.Pattern;
+import com.sofivanhanen.yarnie.Data.PatternList;
 import com.sofivanhanen.yarnie.Utils.AlgoUtils;
 
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -33,11 +31,11 @@ public class AlgoUtilsTest {
         array[1] = two;
         array[2] = three;
 
-        ArrayList<Pattern> correctResult = new ArrayList<>();
+        PatternList correctResult = new PatternList();
         correctResult.add(one);
         correctResult.add(three);
 
-        List<Pattern> result = AlgoUtils.patternKnapsackWeightOnly(array, maxYards);
+        PatternList result = AlgoUtils.patternKnapsackWeightOnly(array, maxYards);
         assertEquals(correctResult, result);
     }
 
@@ -45,7 +43,7 @@ public class AlgoUtilsTest {
     @Test
     public void patternKnapsackWeightOnly_medium() throws Exception {
         int maxYards = 100;
-        ArrayList<Pattern> correctResult = new ArrayList<Pattern>();
+        PatternList correctResult = new PatternList();
         Pattern[] array = new Pattern[10];
         int[] yardage = {
                 40, // index 0 - part of result
@@ -68,7 +66,7 @@ public class AlgoUtilsTest {
             }
         }
 
-        List<Pattern> result = AlgoUtils.patternKnapsackWeightOnly(array, maxYards);
+        PatternList result = AlgoUtils.patternKnapsackWeightOnly(array, maxYards);
         assertEquals(correctResult, result);
     }
 

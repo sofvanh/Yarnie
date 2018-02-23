@@ -49,9 +49,7 @@ public class GetPatternsTask extends AsyncTask {
             Log.e(this.getClass().toString(), "API keys missing.");
             return null;
         }
-
-        // TODO: No static search word pls
-        String searchWord = "hat";
+        
         Call<PatternsSearchResult> call = service.getPatterns(RavelryApiService.NUMBER_OF_COLORS,
                 RavelryApiService.MAX_NUMBER_OF_PATTERNS, yarnWeight, authHeader);
 

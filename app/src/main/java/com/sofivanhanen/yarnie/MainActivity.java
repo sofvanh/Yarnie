@@ -18,6 +18,7 @@ import com.sofivanhanen.yarnie.AsyncTasks.GetDetailedPatternsTask;
 import com.sofivanhanen.yarnie.AsyncTasks.GetPatternsTask;
 import com.sofivanhanen.yarnie.API.PatternsSearchResult;
 import com.sofivanhanen.yarnie.Data.Pattern;
+import com.sofivanhanen.yarnie.Data.PatternList;
 import com.sofivanhanen.yarnie.Utils.AlgoUtils;
 
 import java.util.List;
@@ -87,13 +88,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // AlgorithmTask returns a list of patterns.
-    public void handleResult(List<Pattern> result) {
+    public void handleResult(PatternList result) {
         progressBar.setVisibility(View.GONE);
         printListOfPatterns(result);
         task = null;
     }
 
-    private void printListOfPatterns(List<Pattern> patterns) {
+    private void printListOfPatterns(PatternList patterns) {
         StringBuilder string = new StringBuilder();
         if (patterns.isEmpty()) {
             string.append("No patterns! Try increasing the amount of yarn.");
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             for (Pattern pattern : patterns) {
                 string.append(pattern.getName() + ", yardage: " + pattern.getYardage() + "\n");
             }
-            string.append(AlgoUtils.getTotalYards(patterns) + " yards total.");
+            string.append(patterns.getTotalYards() + " yards total.");
         }
         setResultText(string.toString());
     }

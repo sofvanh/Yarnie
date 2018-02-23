@@ -24,8 +24,13 @@ public class PatternList implements List<Pattern> {
         firstFreeSpot = 0;
     }
 
+    // Can't return the 'patterns' array as it contaisn empty spaces
     public Pattern[] returnAsArray() {
-        return patterns;
+        Pattern[] result = new Pattern[firstFreeSpot];
+        for (int i = 0; i < firstFreeSpot; i++) {
+            result[i] = patterns[i];
+        }
+        return result;
     }
 
     // Creating a PatternList out of an array
@@ -35,6 +40,16 @@ public class PatternList implements List<Pattern> {
             list.add(pattern);
         }
         return list;
+    }
+
+    public int getTotalYards() {
+        int yards = 0;
+        for (Pattern pattern : patterns) {
+            if (pattern != null) {
+                yards += pattern.getYardage();
+            }
+        }
+        return yards;
     }
 
     @Override

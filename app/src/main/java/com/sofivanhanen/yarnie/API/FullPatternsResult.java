@@ -2,8 +2,7 @@ package com.sofivanhanen.yarnie.API;
 
 
 import com.sofivanhanen.yarnie.Data.Pattern;
-
-import java.util.ArrayList;
+import com.sofivanhanen.yarnie.Data.PatternList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,8 +18,8 @@ public class FullPatternsResult {
 
     public HashMap<Integer, Pattern> getPatterns() { return patterns; }
 
-    public List<Pattern> getPatternsAsList(boolean include0Yardage) {
-        ArrayList<Pattern> result = new ArrayList<>();
+    public PatternList getPatternsAsList(boolean include0Yardage) {
+        PatternList result = new PatternList();
         for (Pattern pattern : patterns.values()) {
             if (include0Yardage || pattern.getYardage() > 0) {
                 result.add(pattern);
