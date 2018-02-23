@@ -10,17 +10,18 @@ public class Pattern {
     private int id;
     private String name;
     private int yardage;
-    private int yardage_max;
 
+    // Setters for testing purposes
+    public void setFree(boolean free) { this.free = free; }
     public boolean getFree() { return free; }
 
+    public void setId(int id) { this.id = id; }
     public int getId() { return id; }
 
+    public void setName(String name) { this.name = name; };
     public String getName() { return name; }
 
     public void setYardage(int yardage) { this.yardage = yardage; }
     public int getYardage() { return yardage; }
-
-    public int getYardage_max() { return yardage_max; }
 
 }

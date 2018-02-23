@@ -9,12 +9,6 @@ import com.sofivanhanen.yarnie.Data.PatternList;
 
 public class AlgoUtils {
 
-    // Helper method for finding bigger value
-    public static int max(int a, int b) {
-        if (b > a) return b;
-        else return a;
-    }
-
     // Helper method for finding the set with biggest yardage
     private static PatternList max(PatternList a, PatternList b) {
         int aYards = a.getTotalYards();

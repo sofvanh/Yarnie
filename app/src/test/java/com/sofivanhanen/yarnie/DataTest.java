@@ -164,7 +164,7 @@ public class DataTest {
         patterns.add(p1);
         patterns.add(p2);
 
-        Pattern[] correctResult = new Pattern[20];
+        Pattern[] correctResult = new Pattern[2];
         correctResult[0] = p1;
         correctResult[1] = p2;
 
@@ -184,11 +184,24 @@ public class DataTest {
         patterns.add(p1);
         patterns.add(p2);
 
-        Pattern[] incorrectResult = new Pattern[20];
+        Pattern[] incorrectResult = new Pattern[2];
         incorrectResult[0] = p1;
         incorrectResult[1] = p3;
 
         assertNotEquals(incorrectResult, patterns.returnAsArray());
+    }
+
+    @Test
+    public void patternTest() {
+        Pattern pattern = new Pattern();
+        pattern.setId(200);
+        pattern.setYardage(400);
+        pattern.setName("hat");
+        pattern.setFree(true);
+        String expectedValuesAsString = "200400hattrue";
+        String realValuesAsString = pattern.getId() + "" + pattern.getYardage()
+                + pattern.getName() + pattern.getFree();
+        assertEquals(expectedValuesAsString, realValuesAsString);
     }
 
 }
