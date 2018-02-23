@@ -26,6 +26,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     EditText amountOfYarnEditText;
+    int yarnAmount;
     Spinner yarnWeightSpinner;
     ProgressBar progressBar;
     TextView resultTextView;
@@ -54,11 +55,12 @@ public class MainActivity extends AppCompatActivity {
     public void handleClick(View v) {
         if (task != null) return; // There's a task running already.
         String amount = amountOfYarnEditText.getText().toString();
-        if (amount.toString().equals("")) {
+        if (amount.equals("")) {
             // User didn't input amount of yarn!
             makeToast("Please give amount of yarn");
             return;
         }
+        yarnAmount = Integer.parseInt(amount);
         // Start the API request
         progressBar.setVisibility(View.VISIBLE);
         task = new GetPatternsTask(this, (String) yarnWeightSpinner.getSelectedItem());
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         // We run the algorithm on a separate thread so as to not block the UI
         task = new AlgorithmTask(this,
                 result.getPatternsAsList(false),
-                Integer.parseInt(amountOfYarnEditText.getText().toString()));
+                yarnAmount);
         task.execute();
     }
 
