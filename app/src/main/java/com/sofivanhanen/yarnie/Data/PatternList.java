@@ -24,6 +24,19 @@ public class PatternList implements List<Pattern> {
         firstFreeSpot = 0;
     }
 
+    public Pattern[] returnAsArray() {
+        return patterns;
+    }
+
+    // Creating a PatternList out of an array
+    public static PatternList PatternListFromArray(Pattern[] patterns) {
+        PatternList list = new PatternList();
+        for (Pattern pattern : patterns) {
+            list.add(pattern);
+        }
+        return list;
+    }
+
     @Override
     public int size() {
         return firstFreeSpot;
