@@ -19,17 +19,29 @@
             android:layout_weight="10"
             android:orientation="vertical">
 
-            <!-- TODO: Spinner for choosing between yards and meters -->
-
-            <EditText
-                android:id="@+id/et_amount_of_yarn"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="How much yarn? (Yards)"
-                android:maxLines="1"
-                android:inputType="number"/>
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_amount_of_yarn"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="10"
+                    android:layout_height="wrap_content"
+                    android:hint="How much yarn?"
+                    android:maxLines="1"
+                    android:inputType="number"/>
+
+                <Spinner
+                    android:id="@+id/spinner_yards_meters"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"/>
+
+            </LinearLayout>
 
             <Spinner
                 android:id="@+id/spinner_yarn_weights"
@@ -43,12 +55,10 @@
             android:id="@+id/button_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:text="Search"
             android:onClick="handleClick"
-            android:layout_gravity="center"
+            android:layout_marginRight="16dp"
+            android:layout_gravity="center_vertical"
             />
 
     </LinearLayout>

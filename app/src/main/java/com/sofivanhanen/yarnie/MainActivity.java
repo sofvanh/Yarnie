@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText amountOfYarnEditText;
     int yarnAmount;
+    Spinner yardsOrMetersSpinner;
     Spinner yarnWeightSpinner;
     ProgressBar progressBar;
     TextView resultTextView;
@@ -37,12 +38,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         amountOfYarnEditText = findViewById(R.id.et_amount_of_yarn);
+
+        yardsOrMetersSpinner = findViewById(R.id.spinner_yards_meters);
+        ArrayAdapter<CharSequence> adapterYards = ArrayAdapter.createFromResource(this,
+                R.array.meters_yards_array, R.layout.support_simple_spinner_dropdown_item);
+        adapterYards.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        yardsOrMetersSpinner.setAdapter(adapterYards);
+
         yarnWeightSpinner = findViewById(R.id.spinner_yarn_weights);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> adapterWeights = ArrayAdapter.createFromResource(this,
                 R.array.yarn_weights_array, R.layout.support_simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        yarnWeightSpinner.setAdapter(adapter);
+        adapterWeights.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        yarnWeightSpinner.setAdapter(adapterWeights);
+
         progressBar = findViewById(R.id.progress_bar);
         resultTextView = findViewById(R.id.tv_pattern_result);
     }
