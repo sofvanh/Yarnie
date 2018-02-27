@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     EditText amountOfYarnEditText;
     int yarnAmount;
     Spinner yardsOrMetersSpinner;
+    boolean meters;
     Spinner yarnWeightSpinner;
     ProgressBar progressBar;
     TextView resultTextView;
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         yarnAmount = Integer.parseInt(amount);
+        meters = ((String) yardsOrMetersSpinner.getSelectedItem()).equals("Meters");
         // Start the API request
         progressBar.setVisibility(View.VISIBLE);
         task = new GetPatternsTask(this, (String) yarnWeightSpinner.getSelectedItem());
@@ -92,10 +94,12 @@ public class MainActivity extends AppCompatActivity {
 
     // GetDetailedPatternsTask returns FullPatternsResult.
     public void handleResult(FullPatternsResult result) {
+        int yardage = yarnAmount;
+        if (meters) yardage = AlgoUtils.metersToYards(yardage);
         // We run the algorithm on a separate thread so as to not block the UI
         task = new AlgorithmTask(this,
                 result.getPatternsAsList(false),
-                yarnAmount);
+                yardage);
         task.execute();
     }
 
@@ -111,6 +115,9 @@ public class MainActivity extends AppCompatActivity {
         if (patterns.isEmpty()) {
             string.append("No patterns! Try increasing the amount of yarn.");
         } else {
+            if (meters) {
+                string.append(yarnAmount + " meters = " + AlgoUtils.metersToYards(yarnAmount) + " yards\n");
+            }
             for (Pattern pattern : patterns) {
                 string.append(pattern.getName() + ", yardage: " + pattern.getYardage() + "\n");
             }
