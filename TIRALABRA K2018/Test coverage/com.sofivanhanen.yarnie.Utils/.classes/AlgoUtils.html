@@ -50,18 +50,18 @@
 </td>
 <td class="coverageStat">
   <span class="percent">
-    66.7%
+    80%
   </span>
   <span class="absValue">
-    (4/ 6)
+    (4/ 5)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    86.4%
+    93.8%
   </span>
   <span class="absValue">
-    (19/ 22)
+    (15/ 16)
   </span>
 </td>
 </tr>
@@ -74,74 +74,60 @@
 
 <div class="sourceCode"><i>1</i>&nbsp;package com.sofivanhanen.yarnie.Utils;
 <i>2</i>&nbsp;
-<i>3</i>&nbsp;import com.sofivanhanen.yarnie.Pattern;
-<i>4</i>&nbsp;
-<i>5</i>&nbsp;import java.util.ArrayList;
-<i>6</i>&nbsp;import java.util.List;
-<i>7</i>&nbsp;
-<i>8</i>&nbsp;/**
-<i>9</i>&nbsp; * Created by sofvanh on 31/01/18.
-<i>10</i>&nbsp; */
+<i>3</i>&nbsp;import com.sofivanhanen.yarnie.Data.Pattern;
+<i>4</i>&nbsp;import com.sofivanhanen.yarnie.Data.PatternList;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;/**
+<i>7</i>&nbsp; * Created by sofvanh on 31/01/18.
+<i>8</i>&nbsp; */
+<i>9</i>&nbsp;
+<b class="nc"><i>10</i>&nbsp;public class AlgoUtils {</b>
 <i>11</i>&nbsp;
-<b class="nc"><i>12</i>&nbsp;public class AlgoUtils {</b>
-<i>13</i>&nbsp;
-<i>14</i>&nbsp;    // TODO: Get rid of the ArrayLists here
-<i>15</i>&nbsp;
-<i>16</i>&nbsp;    // Helper method for finding bigger value
-<i>17</i>&nbsp;    public static int max(int a, int b) {
-<b class="nc"><i>18</i>&nbsp;        if (b &gt; a) return b;</b>
-<b class="nc"><i>19</i>&nbsp;        else return a;</b>
-<i>20</i>&nbsp;    }
-<i>21</i>&nbsp;
-<i>22</i>&nbsp;    // Helper method for finding the set with biggest yardage
-<i>23</i>&nbsp;    // TODO: Since we need to replace the ArrayLists anyway, should make a Pattern-specific
-<i>24</i>&nbsp;    // collection class that can calculate the yardage on it&#39;s own
-<i>25</i>&nbsp;    private static List&lt;Pattern&gt; max(List&lt;Pattern&gt; a, List&lt;Pattern&gt; b) {
-<b class="fc"><i>26</i>&nbsp;        int aYards = getTotalYards(a);</b>
-<b class="fc"><i>27</i>&nbsp;        int bYards = getTotalYards(b);</b>
-<b class="fc"><i>28</i>&nbsp;        if (aYards &gt;= bYards) return a;</b>
-<b class="fc"><i>29</i>&nbsp;        else return b;</b>
-<i>30</i>&nbsp;    }
-<i>31</i>&nbsp;
-<i>32</i>&nbsp;    public static int getTotalYards(List&lt;Pattern&gt; patterns) {
-<b class="fc"><i>33</i>&nbsp;        int yards = 0;</b>
-<b class="fc"><i>34</i>&nbsp;        for (Pattern pattern : patterns) {</b>
-<b class="fc"><i>35</i>&nbsp;            yards += pattern.getYardage();</b>
-<b class="fc"><i>36</i>&nbsp;        }</b>
-<b class="fc"><i>37</i>&nbsp;        return yards;</b>
-<i>38</i>&nbsp;    }
-<i>39</i>&nbsp;
-<i>40</i>&nbsp;    // First algorithm that works with Pattern objects
-<i>41</i>&nbsp;    // Uses the recursive knapsack algorithm in KKKK (Kisakoodarin käsikirja)
-<i>42</i>&nbsp;    public static List&lt;Pattern&gt; patternKnapsackWeightOnly(Pattern[] patterns, int maxYardage) {
-<b class="fc"><i>43</i>&nbsp;        if (patterns.length == 0 || maxYardage &lt;= 0) return new ArrayList&lt;&gt;();</b>
-<b class="fc"><i>44</i>&nbsp;        List&lt;Pattern&gt; list = recursiveKnapsackWeightOnly(patterns, patterns.length-1, maxYardage);</b>
-<b class="fc"><i>45</i>&nbsp;        return list;</b>
-<i>46</i>&nbsp;    }
+<i>12</i>&nbsp;    // Helper method for finding the set with biggest yardage
+<i>13</i>&nbsp;    private static PatternList max(PatternList a, PatternList b) {
+<b class="fc"><i>14</i>&nbsp;        int aYards = a.getTotalYards();</b>
+<b class="fc"><i>15</i>&nbsp;        int bYards = b.getTotalYards();</b>
+<b class="fc"><i>16</i>&nbsp;        if (aYards &gt;= bYards) return a;</b>
+<b class="fc"><i>17</i>&nbsp;        else return b;</b>
+<i>18</i>&nbsp;    }
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    // First algorithm that works with Pattern objects
+<i>21</i>&nbsp;    // Uses the recursive knapsack algorithm in KKKK (Kisakoodarin käsikirja)
+<i>22</i>&nbsp;    public static PatternList patternKnapsackWeightOnly(Pattern[] patterns, int maxYardage) {
+<b class="fc"><i>23</i>&nbsp;        if (patterns.length == 0 || maxYardage &lt;= 0) return new PatternList();</b>
+<b class="fc"><i>24</i>&nbsp;        PatternList list = recursiveKnapsackWeightOnly(patterns, patterns.length-1, maxYardage);</b>
+<b class="fc"><i>25</i>&nbsp;        return list;</b>
+<i>26</i>&nbsp;    }
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    private static PatternList recursiveKnapsackWeightOnly(Pattern[] patterns, int maxIndex, int maxYards) {
+<b class="fc"><i>29</i>&nbsp;        if (maxIndex == -1) {</b>
+<b class="fc"><i>30</i>&nbsp;            return new PatternList();</b>
+<i>31</i>&nbsp;        }
+<b class="fc"><i>32</i>&nbsp;        PatternList first = recursiveKnapsackWeightOnly(patterns, maxIndex - 1, maxYards);</b>
+<b class="fc"><i>33</i>&nbsp;        if (maxYards &lt; patterns[maxIndex].getYardage()) return first;</b>
+<b class="fc"><i>34</i>&nbsp;        PatternList second = recursiveKnapsackWeightOnly(patterns, maxIndex - 1, maxYards - patterns[maxIndex].getYardage());</b>
+<b class="fc"><i>35</i>&nbsp;        second.add(patterns[maxIndex]);</b>
+<b class="fc"><i>36</i>&nbsp;        return max(first, second);</b>
+<i>37</i>&nbsp;    }
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    // For when user wants to use meters instead of yards. Rounds down.
+<i>40</i>&nbsp;    private static final double ONE_METER_IN_YARDS = 1.0936133;
+<i>41</i>&nbsp;    public static int metersToYards(int meters) {
+<b class="fc"><i>42</i>&nbsp;        return (int)(meters * ONE_METER_IN_YARDS);</b>
+<i>43</i>&nbsp;    }
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    // TODO: Add an algorithm for calculating a pattern&#39;s value
+<i>46</i>&nbsp;    // Should be based on user&#39;s preferences, availability, and popularity
 <i>47</i>&nbsp;
-<i>48</i>&nbsp;    private static List&lt;Pattern&gt; recursiveKnapsackWeightOnly(Pattern[] patterns, int maxIndex, int maxYards) {
-<b class="fc"><i>49</i>&nbsp;        if (maxIndex == -1) {</b>
-<b class="fc"><i>50</i>&nbsp;            return new ArrayList&lt;Pattern&gt;();</b>
-<i>51</i>&nbsp;        }
-<b class="fc"><i>52</i>&nbsp;        List&lt;Pattern&gt; first = recursiveKnapsackWeightOnly(patterns, maxIndex - 1, maxYards);</b>
-<b class="fc"><i>53</i>&nbsp;        if (maxYards &lt; patterns[maxIndex].getYardage()) return first;</b>
-<b class="fc"><i>54</i>&nbsp;        List&lt;Pattern&gt; second = recursiveKnapsackWeightOnly(patterns, maxIndex - 1, maxYards - patterns[maxIndex].getYardage());</b>
-<b class="fc"><i>55</i>&nbsp;        second.add(patterns[maxIndex]);</b>
-<b class="fc"><i>56</i>&nbsp;        return max(first, second);</b>
-<i>57</i>&nbsp;    }
-<i>58</i>&nbsp;
-<i>59</i>&nbsp;    // TODO: Add an algorithm for calculating a pattern&#39;s value
-<i>60</i>&nbsp;    // Should be based on user&#39;s preferences, availability, and popularity
-<i>61</i>&nbsp;
-<i>62</i>&nbsp;    // TODO: Add a kanpsack algorithm for patterns that have a value
-<i>63</i>&nbsp;
-<i>64</i>&nbsp;}
+<i>48</i>&nbsp;    // TODO: Add a kanpsack algorithm for patterns that have a value
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2018-02-17 19:41</div>
+    <div style="float:right;">generated on 2018-02-27 12:13</div>
 </div>
 </body>
 </html>

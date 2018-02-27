@@ -75,41 +75,40 @@
 <div class="sourceCode"><i>1</i>&nbsp;package com.sofivanhanen.yarnie.API;
 <i>2</i>&nbsp;
 <i>3</i>&nbsp;
-<i>4</i>&nbsp;import com.sofivanhanen.yarnie.Pattern;
-<i>5</i>&nbsp;
-<i>6</i>&nbsp;import java.util.ArrayList;
-<i>7</i>&nbsp;import java.util.HashMap;
-<i>8</i>&nbsp;import java.util.List;
-<i>9</i>&nbsp;
-<i>10</i>&nbsp;/**
-<i>11</i>&nbsp; * Created by sofvanh on 13/02/18.
-<i>12</i>&nbsp; */
-<i>13</i>&nbsp;
-<b class="nc"><i>14</i>&nbsp;public class FullPatternsResult {</b>
-<i>15</i>&nbsp;
-<i>16</i>&nbsp;    // The getPatternsById query returns this object
-<i>17</i>&nbsp;
-<i>18</i>&nbsp;    private HashMap&lt;Integer, Pattern&gt; patterns;
-<i>19</i>&nbsp;
-<b class="nc"><i>20</i>&nbsp;    public HashMap&lt;Integer, Pattern&gt; getPatterns() { return patterns; }</b>
-<i>21</i>&nbsp;
-<i>22</i>&nbsp;    public List&lt;Pattern&gt; getPatternsAsList(boolean include0Yardage) {
-<b class="nc"><i>23</i>&nbsp;        ArrayList&lt;Pattern&gt; result = new ArrayList&lt;&gt;();</b>
-<b class="nc"><i>24</i>&nbsp;        for (Pattern pattern : patterns.values()) {</b>
-<b class="nc"><i>25</i>&nbsp;            if (include0Yardage || pattern.getYardage() &gt; 0) {</b>
-<b class="nc"><i>26</i>&nbsp;                result.add(pattern);</b>
-<i>27</i>&nbsp;            }
-<b class="nc"><i>28</i>&nbsp;        }</b>
-<b class="nc"><i>29</i>&nbsp;        return result;</b>
-<i>30</i>&nbsp;    }
-<i>31</i>&nbsp;
-<i>32</i>&nbsp;}
+<i>4</i>&nbsp;import com.sofivanhanen.yarnie.Data.Pattern;
+<i>5</i>&nbsp;import com.sofivanhanen.yarnie.Data.PatternList;
+<i>6</i>&nbsp;import java.util.HashMap;
+<i>7</i>&nbsp;import java.util.List;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;/**
+<i>10</i>&nbsp; * Created by sofvanh on 13/02/18.
+<i>11</i>&nbsp; */
+<i>12</i>&nbsp;
+<b class="nc"><i>13</i>&nbsp;public class FullPatternsResult {</b>
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    // The getPatternsById query returns this object
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    private HashMap&lt;Integer, Pattern&gt; patterns;
+<i>18</i>&nbsp;
+<b class="nc"><i>19</i>&nbsp;    public HashMap&lt;Integer, Pattern&gt; getPatterns() { return patterns; }</b>
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    public PatternList getPatternsAsList(boolean include0Yardage) {
+<b class="nc"><i>22</i>&nbsp;        PatternList result = new PatternList();</b>
+<b class="nc"><i>23</i>&nbsp;        for (Pattern pattern : patterns.values()) {</b>
+<b class="nc"><i>24</i>&nbsp;            if (include0Yardage || pattern.getYardage() &gt; 0) {</b>
+<b class="nc"><i>25</i>&nbsp;                result.add(pattern);</b>
+<i>26</i>&nbsp;            }
+<b class="nc"><i>27</i>&nbsp;        }</b>
+<b class="nc"><i>28</i>&nbsp;        return result;</b>
+<i>29</i>&nbsp;    }
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2018-02-17 19:41</div>
+    <div style="float:right;">generated on 2018-02-27 12:13</div>
 </div>
 </body>
 </html>

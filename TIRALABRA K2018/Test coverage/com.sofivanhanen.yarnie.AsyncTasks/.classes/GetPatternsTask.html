@@ -17,10 +17,10 @@
 <div class="content">
 <div class="breadCrumbs">
     [ <a href="../../index.html">all classes</a> ]
-    [ <a href="../index.html">com.sofivanhanen.yarnie.API</a> ]
+    [ <a href="../index.html">com.sofivanhanen.yarnie.AsyncTasks</a> ]
 </div>
 
-<h1>Coverage Summary for Class: GetPatternsTask (com.sofivanhanen.yarnie.API)</h1>
+<h1>Coverage Summary for Class: GetPatternsTask (com.sofivanhanen.yarnie.AsyncTasks)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -61,7 +61,7 @@
     0%
   </span>
   <span class="absValue">
-    (0/ 24)
+    (0/ 23)
   </span>
 </td>
 </tr>
@@ -72,7 +72,7 @@
 <br/>
 
 
-<div class="sourceCode"><i>1</i>&nbsp;package com.sofivanhanen.yarnie.API;
+<div class="sourceCode"><i>1</i>&nbsp;package com.sofivanhanen.yarnie.AsyncTasks;
 <i>2</i>&nbsp;
 <i>3</i>&nbsp;import android.os.AsyncTask;
 <i>4</i>&nbsp;import android.util.Base64;
@@ -123,41 +123,39 @@
 <b class="nc"><i>49</i>&nbsp;            Log.e(this.getClass().toString(), &quot;API keys missing.&quot;);</b>
 <b class="nc"><i>50</i>&nbsp;            return null;</b>
 <i>51</i>&nbsp;        }
-<i>52</i>&nbsp;
-<i>53</i>&nbsp;        // TODO: No static search word pls
-<b class="nc"><i>54</i>&nbsp;        String searchWord = &quot;hat&quot;;</b>
-<b class="nc"><i>55</i>&nbsp;        Call&lt;PatternsSearchResult&gt; call = service.getPatterns(RavelryApiService.NUMBER_OF_COLORS,</b>
-<i>56</i>&nbsp;                RavelryApiService.MAX_NUMBER_OF_PATTERNS, yarnWeight, authHeader);
-<i>57</i>&nbsp;
-<i>58</i>&nbsp;        try {
-<b class="nc"><i>59</i>&nbsp;            Response&lt;PatternsSearchResult&gt; response = call.execute();</b>
-<b class="nc"><i>60</i>&nbsp;            if (response.isSuccessful()) {</b>
-<i>61</i>&nbsp;                // yay success
-<i>62</i>&nbsp;            } else {
-<i>63</i>&nbsp;                // oh no
-<i>64</i>&nbsp;            }
-<b class="nc"><i>65</i>&nbsp;            return response.body();</b>
-<b class="nc"><i>66</i>&nbsp;        } catch (IOException e) {</b>
-<b class="nc"><i>67</i>&nbsp;            return null;</b>
-<i>68</i>&nbsp;        }
-<i>69</i>&nbsp;    }
-<i>70</i>&nbsp;
-<i>71</i>&nbsp;    @Override
-<i>72</i>&nbsp;    protected void onPostExecute(Object result) {
-<b class="nc"><i>73</i>&nbsp;        if (result == null || !result.getClass().equals(PatternsSearchResult.class)) {</b>
-<b class="nc"><i>74</i>&nbsp;            context.handleFailedAsyncTask();</b>
-<b class="nc"><i>75</i>&nbsp;            Log.e(this.getClass().toString(), &quot;Result was not a PatternsSearchResult object!&quot;);</b>
-<i>76</i>&nbsp;        } else {
-<b class="nc"><i>77</i>&nbsp;            context.handleResult((PatternsSearchResult) result);</b>
-<i>78</i>&nbsp;        }
-<i>79</i>&nbsp;    }
-<i>80</i>&nbsp;}
+<i>52</i>&nbsp;        
+<b class="nc"><i>53</i>&nbsp;        Call&lt;PatternsSearchResult&gt; call = service.getPatterns(RavelryApiService.NUMBER_OF_COLORS,</b>
+<i>54</i>&nbsp;                RavelryApiService.MAX_NUMBER_OF_PATTERNS, yarnWeight, authHeader);
+<i>55</i>&nbsp;
+<i>56</i>&nbsp;        try {
+<b class="nc"><i>57</i>&nbsp;            Response&lt;PatternsSearchResult&gt; response = call.execute();</b>
+<b class="nc"><i>58</i>&nbsp;            if (response.isSuccessful()) {</b>
+<i>59</i>&nbsp;                // yay success
+<i>60</i>&nbsp;            } else {
+<i>61</i>&nbsp;                // oh no
+<i>62</i>&nbsp;            }
+<b class="nc"><i>63</i>&nbsp;            return response.body();</b>
+<b class="nc"><i>64</i>&nbsp;        } catch (IOException e) {</b>
+<b class="nc"><i>65</i>&nbsp;            return null;</b>
+<i>66</i>&nbsp;        }
+<i>67</i>&nbsp;    }
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    @Override
+<i>70</i>&nbsp;    protected void onPostExecute(Object result) {
+<b class="nc"><i>71</i>&nbsp;        if (result == null || !result.getClass().equals(PatternsSearchResult.class)) {</b>
+<b class="nc"><i>72</i>&nbsp;            context.handleFailedAsyncTask();</b>
+<b class="nc"><i>73</i>&nbsp;            Log.e(this.getClass().toString(), &quot;Result was not a PatternsSearchResult object!&quot;);</b>
+<i>74</i>&nbsp;        } else {
+<b class="nc"><i>75</i>&nbsp;            context.handleResult((PatternsSearchResult) result);</b>
+<i>76</i>&nbsp;        }
+<i>77</i>&nbsp;    }
+<i>78</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2018-02-17 19:41</div>
+    <div style="float:right;">generated on 2018-02-27 12:13</div>
 </div>
 </body>
 </html>
