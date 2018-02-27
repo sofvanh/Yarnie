@@ -36,6 +36,12 @@ public class AlgoUtils {
         return max(first, second);
     }
 
+    // For when user wants to use meters instead of yards. Rounds down.
+    private static final double ONE_METER_IN_YARDS = 1.0936133;
+    public static int metersToYards(int meters) {
+        return (int)(meters * ONE_METER_IN_YARDS);
+    }
+
     // TODO: Add an algorithm for calculating a pattern's value
     // Should be based on user's preferences, availability, and popularity
 

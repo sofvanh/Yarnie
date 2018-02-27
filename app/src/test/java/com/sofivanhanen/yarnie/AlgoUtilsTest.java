@@ -70,4 +70,11 @@ public class AlgoUtilsTest {
         assertEquals(correctResult, result);
     }
 
+    @Test
+    public void metersToYardsTest() throws Exception {
+        int meters = 1234;
+        int correctYards = 1349; // rounded down
+        assertEquals(correctYards, AlgoUtils.metersToYards(meters));
+    }
+
 }
