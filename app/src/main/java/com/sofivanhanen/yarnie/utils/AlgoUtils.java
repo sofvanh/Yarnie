@@ -1,8 +1,8 @@
-package com.sofivanhanen.yarnie.Utils;
+package com.sofivanhanen.yarnie.utils;
 
 
-import com.sofivanhanen.yarnie.Data.Pattern;
-import com.sofivanhanen.yarnie.Data.PatternList;
+import com.sofivanhanen.yarnie.data.Pattern;
+import com.sofivanhanen.yarnie.data.PatternList;
 
 /**
  * Created by sofvanh on 31/01/18.
@@ -36,8 +36,13 @@ public class AlgoUtils {
         // yardage * ((5 / 5+(years since published)) * (if free, 1; if not, 0.75) + (number of projects / 200 000))
 
         int yardage = pattern.getYardage();
-        long millisecondsInYear = 31556952000l;
-        int yearsSincePublish = (int) ((System.currentTimeMillis() - pattern.getPublished().getTime()) / millisecondsInYear);
+        int yearsSincePublish;
+        if (pattern.getPublished() != null) {
+            long millisecondsInYear = 31556952000l;
+            yearsSincePublish = (int) ((System.currentTimeMillis() - pattern.getPublished().getTime()) / millisecondsInYear);
+        } else {
+            yearsSincePublish = 3; // We don't know actual publishing year
+        }
         double free;
         if (pattern.getFree()) free = 1;
             else free = 0.75;

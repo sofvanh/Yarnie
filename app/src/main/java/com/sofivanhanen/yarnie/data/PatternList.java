@@ -1,4 +1,4 @@
-package com.sofivanhanen.yarnie.Data;
+package com.sofivanhanen.yarnie.data;
 
 import android.support.annotation.NonNull;
 

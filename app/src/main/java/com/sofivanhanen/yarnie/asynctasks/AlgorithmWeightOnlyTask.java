@@ -1,10 +1,10 @@
-package com.sofivanhanen.yarnie.AsyncTasks;
+package com.sofivanhanen.yarnie.asynctasks;
 
 import android.os.AsyncTask;
 
 import com.sofivanhanen.yarnie.MainActivity;
-import com.sofivanhanen.yarnie.Data.PatternList;
-import com.sofivanhanen.yarnie.Utils.AlgoUtils;
+import com.sofivanhanen.yarnie.data.PatternList;
+import com.sofivanhanen.yarnie.utils.AlgoUtils;
 
 /**
  * Created by sofvanh on 19/02/18.

@@ -1,7 +1,7 @@
 package com.sofivanhanen.yarnie;
 
-import com.sofivanhanen.yarnie.Data.Pattern;
-import com.sofivanhanen.yarnie.Utils.AlgoUtils;
+import com.sofivanhanen.yarnie.data.Pattern;
+import com.sofivanhanen.yarnie.utils.AlgoUtils;
 
 import org.junit.Test;
 

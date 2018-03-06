@@ -14,15 +14,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sofivanhanen.yarnie.API.FullPatternsResult;
-import com.sofivanhanen.yarnie.AsyncTasks.AlgorithmWeightOnlyTask;
-import com.sofivanhanen.yarnie.AsyncTasks.AlgorithmWithValueTask;
-import com.sofivanhanen.yarnie.AsyncTasks.GetDetailedPatternsTask;
-import com.sofivanhanen.yarnie.AsyncTasks.GetPatternsTask;
-import com.sofivanhanen.yarnie.API.PatternsSearchResult;
-import com.sofivanhanen.yarnie.Data.Pattern;
-import com.sofivanhanen.yarnie.Data.PatternList;
-import com.sofivanhanen.yarnie.Utils.AlgoUtils;
+import com.sofivanhanen.yarnie.api.FullPatternsResult;
+import com.sofivanhanen.yarnie.asynctasks.AlgorithmWeightOnlyTask;
+import com.sofivanhanen.yarnie.asynctasks.AlgorithmWithValueTask;
+import com.sofivanhanen.yarnie.asynctasks.GetDetailedPatternsTask;
+import com.sofivanhanen.yarnie.asynctasks.GetPatternsTask;
+import com.sofivanhanen.yarnie.api.PatternsSearchResult;
+import com.sofivanhanen.yarnie.data.Pattern;
+import com.sofivanhanen.yarnie.data.PatternList;
+import com.sofivanhanen.yarnie.utils.AlgoUtils;
 
 public class MainActivity extends AppCompatActivity {
 

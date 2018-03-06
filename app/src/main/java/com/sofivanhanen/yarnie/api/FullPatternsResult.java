@@ -1,10 +1,9 @@
-package com.sofivanhanen.yarnie.API;
+package com.sofivanhanen.yarnie.api;
 
 
-import com.sofivanhanen.yarnie.Data.Pattern;
-import com.sofivanhanen.yarnie.Data.PatternList;
+import com.sofivanhanen.yarnie.data.Pattern;
+import com.sofivanhanen.yarnie.data.PatternList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by sofvanh on 13/02/18.

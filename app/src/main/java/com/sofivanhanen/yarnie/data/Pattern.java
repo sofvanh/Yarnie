@@ -1,8 +1,8 @@
-package com.sofivanhanen.yarnie.Data;
+package com.sofivanhanen.yarnie.data;
 
 import android.util.Log;
 
-import com.sofivanhanen.yarnie.Utils.AlgoUtils;
+import com.sofivanhanen.yarnie.utils.AlgoUtils;
 
 import java.util.Calendar;
 import java.util.Date;

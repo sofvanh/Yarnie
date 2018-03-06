@@ -1,6 +1,6 @@
-package com.sofivanhanen.yarnie.API;
+package com.sofivanhanen.yarnie.api;
 
-import com.sofivanhanen.yarnie.Data.Pattern;
+import com.sofivanhanen.yarnie.data.Pattern;
 
 /**
  * Created by sofvanh on 02/02/18.

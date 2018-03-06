@@ -19,4 +19,9 @@
         <item>Super Bulky</item>
         <item>Jumbo</item>
     </string-array>
+
+    <string-array name="meters_yards_array">
+        <item>Yards</item>
+        <item>Meters</item>
+    </string-array>
 </resources>

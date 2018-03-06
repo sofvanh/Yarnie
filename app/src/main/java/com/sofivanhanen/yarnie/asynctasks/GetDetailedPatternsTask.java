@@ -1,4 +1,4 @@
-package com.sofivanhanen.yarnie.AsyncTasks;
+package com.sofivanhanen.yarnie.asynctasks;
 
 import android.os.AsyncTask;
 import android.util.Base64;
@@ -6,8 +6,8 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sofivanhanen.yarnie.API.FullPatternsResult;
-import com.sofivanhanen.yarnie.API.RavelryApiService;
+import com.sofivanhanen.yarnie.api.FullPatternsResult;
+import com.sofivanhanen.yarnie.api.RavelryApiService;
 import com.sofivanhanen.yarnie.MainActivity;
 import com.sofivanhanen.yarnie.R;
 
