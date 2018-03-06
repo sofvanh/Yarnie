@@ -11,10 +11,18 @@ import com.sofivanhanen.yarnie.Data.PatternList;
 public class AlgoUtils {
 
     // Helper method for finding the set with biggest yardage
-    private static PatternList max(PatternList a, PatternList b) {
+    private static PatternList maxYardage(PatternList a, PatternList b) {
         int aYards = a.getTotalYards();
         int bYards = b.getTotalYards();
         if (aYards >= bYards) return a;
+        else return b;
+    }
+
+    // Helper method for finding the set with biggest value
+    private static PatternList maxValue(PatternList a, PatternList b) {
+        int aValue = a.getTotalValue();
+        int bValue = b.getTotalValue();
+        if (aValue >= bValue) return a;
         else return b;
     }
 
@@ -57,7 +65,7 @@ public class AlgoUtils {
         if (maxYards < patterns[maxIndex].getYardage()) return first;
         PatternList second = recursiveKnapsackWeightOnly(patterns, maxIndex - 1, maxYards - patterns[maxIndex].getYardage());
         second.add(patterns[maxIndex]);
-        return max(first, second);
+        return maxYardage(first, second);
     }
 
     // For when user wants to use meters instead of yards. Rounds down.
@@ -66,6 +74,22 @@ public class AlgoUtils {
         return (int)(meters * ONE_METER_IN_YARDS);
     }
 
-    // TODO: Add a kanpsack algorithm for patterns that have a value
+    // Same as above, except now we use pattern's value as value
+    public static PatternList patternKnapsack(Pattern[] patterns, int maxYardage) {
+        if (patterns.length == 0 || maxYardage <= 0) return new PatternList();
+        PatternList list = recursiveKnapsack(patterns, patterns.length-1, maxYardage);
+        return list;
+    }
+
+    private static PatternList recursiveKnapsack(Pattern[] patterns, int maxIndex, int maxYards) {
+        if (maxIndex == -1) {
+            return new PatternList();
+        }
+        PatternList first = recursiveKnapsackWeightOnly(patterns, maxIndex - 1, maxYards);
+        if (maxYards < patterns[maxIndex].getYardage()) return first;
+        PatternList second = recursiveKnapsackWeightOnly(patterns, maxIndex - 1, maxYards - patterns[maxIndex].getYardage());
+        second.add(patterns[maxIndex]);
+        return maxValue(first, second);
+    }
 
 }

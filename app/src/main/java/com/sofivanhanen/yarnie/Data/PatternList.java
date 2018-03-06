@@ -42,6 +42,8 @@ public class PatternList implements List<Pattern> {
         return list;
     }
 
+    // TODO: Cache these
+
     public int getTotalYards() {
         int yards = 0;
         for (Pattern pattern : patterns) {
@@ -50,6 +52,16 @@ public class PatternList implements List<Pattern> {
             }
         }
         return yards;
+    }
+
+    public int getTotalValue() {
+        int value = 0;
+        for (Pattern pattern : patterns) {
+            if (pattern != null) {
+                value += pattern.getValue();
+            }
+        }
+        return value;
     }
 
     @Override

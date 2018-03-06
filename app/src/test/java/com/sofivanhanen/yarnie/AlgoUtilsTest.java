@@ -99,4 +99,32 @@ public class AlgoUtilsTest {
         assertEquals(correctYards, AlgoUtils.metersToYards(meters));
     }
 
+    // Testing regular knapsack algorithm - n = 3, x = 10
+    @Test
+    public void patternKnapsack_easy() throws Exception {
+        int maxYards = 10;
+
+        Pattern one = new Pattern();
+        one.setYardage(10);
+        one.setValue(10);
+        Pattern two = new Pattern();
+        two.setYardage(7);
+        two.setValue(5);
+        Pattern three = new Pattern();
+        three.setYardage(2);
+        three.setValue(18);
+
+        Pattern[] array = new Pattern[3];
+        array[0] = one;
+        array[1] = two;
+        array[2] = three;
+
+        PatternList correctResult = new PatternList();
+        correctResult.add(two);
+        correctResult.add(three);
+
+        PatternList result = AlgoUtils.patternKnapsack(array, maxYards);
+        assertEquals(correctResult, result);
+    }
+
 }

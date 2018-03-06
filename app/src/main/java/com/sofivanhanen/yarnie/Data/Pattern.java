@@ -1,5 +1,7 @@
 package com.sofivanhanen.yarnie.Data;
 
+import com.sofivanhanen.yarnie.Utils.AlgoUtils;
+
 import java.util.Date;
 
 /**
@@ -37,8 +39,14 @@ public class Pattern {
     public int getYardage() { return yardage; }
 
     public int getValue() {
-        return 1;
-        // TODO: If value not calculated, calculate it here, save, and return
+        if (value < 1) {
+            value = AlgoUtils.calculatePatternValue(this);
+        }
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 
 }
