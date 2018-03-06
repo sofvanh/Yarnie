@@ -49,6 +49,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"/>
 
+            <CheckBox
+                android:id="@+id/checkbox_prioritize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Prioritize free, new and popular patterns"
+                android:layout_marginLeft="16dp"/>
+
         </LinearLayout>
 
         <Button

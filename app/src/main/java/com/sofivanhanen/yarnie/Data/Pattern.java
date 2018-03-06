@@ -1,5 +1,7 @@
 package com.sofivanhanen.yarnie.Data;
 
+import android.util.Log;
+
 import com.sofivanhanen.yarnie.Utils.AlgoUtils;
 
 import java.util.Calendar;
@@ -55,11 +57,16 @@ public class Pattern {
         string.append(name + ", " + yardage + " yards\n");
 
         // Getting publish year
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(published.getTime());
-        int year = calendar.get(Calendar.YEAR);
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(published.getTime());
+            int year = calendar.get(Calendar.YEAR);
+            string.append("Published in " + year + ", ");
+        } catch (NullPointerException e) {
+            Log.e(this.getClass().toString(), "Published was null!");
+            // Not printing anything about publishing time
+        }
 
-        string.append("Published in " + year + ", ");
         string.append(projects_count + " projects made, ");
         if (free) string.append("free!");
         else string.append("not free.");

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -21,8 +22,6 @@ import com.sofivanhanen.yarnie.Data.Pattern;
 import com.sofivanhanen.yarnie.Data.PatternList;
 import com.sofivanhanen.yarnie.Utils.AlgoUtils;
 
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
 
     EditText amountOfYarnEditText;
@@ -30,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     Spinner yardsOrMetersSpinner;
     boolean meters;
     Spinner yarnWeightSpinner;
+    CheckBox prioritizeCheckBox;
+    boolean prioritize;
     ProgressBar progressBar;
     TextView resultTextView;
 
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         adapterWeights.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         yarnWeightSpinner.setAdapter(adapterWeights);
 
+        prioritizeCheckBox = findViewById(R.id.checkbox_prioritize);
+
         progressBar = findViewById(R.id.progress_bar);
         resultTextView = findViewById(R.id.tv_pattern_result);
     }
@@ -73,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         }
         yarnAmount = Integer.parseInt(amount);
         meters = ((String) yardsOrMetersSpinner.getSelectedItem()).equals("Meters");
+        prioritize = prioritizeCheckBox.isChecked();
         // Start the API request
         progressBar.setVisibility(View.VISIBLE);
         task = new GetPatternsTask(this, (String) yarnWeightSpinner.getSelectedItem());
@@ -96,7 +100,8 @@ public class MainActivity extends AppCompatActivity {
     public void handleResult(FullPatternsResult result) {
         int yardage = yarnAmount;
         if (meters) yardage = AlgoUtils.metersToYards(yardage);
-        // We run the algorithm on a separate thread so as to not block the UI
+        // We run the algorithm on a separate thread so as to not block the UI.
+        // TODO: If user selected prioritize, new task.
         task = new AlgorithmTask(this,
                 result.getPatternsAsList(false),
                 yardage);
