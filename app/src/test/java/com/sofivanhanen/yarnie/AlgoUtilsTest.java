@@ -6,6 +6,8 @@ import com.sofivanhanen.yarnie.Utils.AlgoUtils;
 
 import org.junit.Test;
 
+import java.util.Date;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -13,6 +15,26 @@ import static org.junit.Assert.assertEquals;
  */
 
 public class AlgoUtilsTest {
+
+    @Test
+    public void patternValue_correct() throws Exception {
+        Pattern pattern = new Pattern();
+        pattern.setFree(true);
+        pattern.setYardage(278);
+        pattern.setPublished(new Date(System.currentTimeMillis()-32556952000l)); // A bit over a year ago
+        pattern.setProjects_count(4000);
+
+        int correctValue = 237;
+
+        assertEquals(correctValue, AlgoUtils.calculatePatternValue(pattern));
+    }
+
+    @Test
+    public void patternValue_incorrect() throws Exception {
+        Pattern pattern = new Pattern();
+        int correctValue = -1;
+        assertEquals(correctValue, AlgoUtils.calculatePatternValue(pattern));
+    }
 
     // Testing the simplest algorithm - n = 3, x = 10
     @Test

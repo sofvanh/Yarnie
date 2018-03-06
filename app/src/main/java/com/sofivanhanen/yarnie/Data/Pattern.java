@@ -15,7 +15,7 @@ public class Pattern {
     private Date published;
     private int yardage;
 
-    private double value;
+    private int value;
 
     // Setters for testing purposes
     public void setFree(boolean free) { this.free = free; }
@@ -27,7 +27,7 @@ public class Pattern {
     public void setName(String name) { this.name = name; }
     public String getName() { return name; }
 
-    public void setProjects_count(int id) { this.projects_count = projects_count; }
+    public void setProjects_count(int projects) { this.projects_count = projects; }
     public int getProjects_count() { return projects_count; }
 
     public void setPublished(Date date) { this.published = date; }
@@ -36,7 +36,7 @@ public class Pattern {
     public void setYardage(int yardage) { this.yardage = yardage; }
     public int getYardage() { return yardage; }
 
-    public double getValue() {
+    public int getValue() {
         return 1;
         // TODO: If value not calculated, calculate it here, save, and return
     }
