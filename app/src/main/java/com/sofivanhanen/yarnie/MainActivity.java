@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 string.append(yarnAmount + " meters = " + AlgoUtils.metersToYards(yarnAmount) + " yards\n");
             }
             for (Pattern pattern : patterns) {
-                string.append(pattern.getName() + ", yardage: " + pattern.getYardage() + "\n");
+                string.append(pattern.showcaseString() + "\n");
             }
             string.append(patterns.getTotalYards() + " yards total.");
         }

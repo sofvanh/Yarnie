@@ -2,6 +2,7 @@ package com.sofivanhanen.yarnie.Data;
 
 import com.sofivanhanen.yarnie.Utils.AlgoUtils;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -47,6 +48,22 @@ public class Pattern {
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    public String showcaseString() {
+        StringBuilder string = new StringBuilder();
+        string.append(name + ", " + yardage + " yards\n");
+
+        // Getting publish year
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(published.getTime());
+        int year = calendar.get(Calendar.YEAR);
+
+        string.append("Published in " + year + ", ");
+        string.append(projects_count + " projects made, ");
+        if (free) string.append("free!");
+        else string.append("not free.");
+        return string.toString();
     }
 
 }
