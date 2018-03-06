@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.util.Base64;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.sofivanhanen.yarnie.API.PatternsSearchResult;
 import com.sofivanhanen.yarnie.API.RavelryApiService;
 import com.sofivanhanen.yarnie.MainActivity;
@@ -26,10 +28,15 @@ public class GetPatternsTask extends AsyncTask {
     private MainActivity context;
     private String yarnWeight;
 
+    //GSONconverter to we can parse date
+    Gson gson = new GsonBuilder()
+            .setDateFormat("yyyy/MM/dd")
+            .create();
+
     // We use Retrofit to easily connect to the API.
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://api.ravelry.com/")
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
 
     public GetPatternsTask(MainActivity context, String selectedYarnWeight) {
