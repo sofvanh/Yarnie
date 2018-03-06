@@ -3,6 +3,7 @@ package com.sofivanhanen.yarnie;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
@@ -14,7 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sofivanhanen.yarnie.API.FullPatternsResult;
-import com.sofivanhanen.yarnie.AsyncTasks.AlgorithmTask;
+import com.sofivanhanen.yarnie.AsyncTasks.AlgorithmWeightOnlyTask;
+import com.sofivanhanen.yarnie.AsyncTasks.AlgorithmWithValueTask;
 import com.sofivanhanen.yarnie.AsyncTasks.GetDetailedPatternsTask;
 import com.sofivanhanen.yarnie.AsyncTasks.GetPatternsTask;
 import com.sofivanhanen.yarnie.API.PatternsSearchResult;
@@ -101,14 +103,20 @@ public class MainActivity extends AppCompatActivity {
         int yardage = yarnAmount;
         if (meters) yardage = AlgoUtils.metersToYards(yardage);
         // We run the algorithm on a separate thread so as to not block the UI.
-        // TODO: If user selected prioritize, new task.
-        task = new AlgorithmTask(this,
-                result.getPatternsAsList(false),
-                yardage);
+        Log.d("!!!", prioritize + "");
+        if (prioritize) {
+            task = new AlgorithmWithValueTask(this,
+                    result.getPatternsAsList(false),
+                    yardage);
+        } else {
+            task = new AlgorithmWeightOnlyTask(this,
+                    result.getPatternsAsList(false),
+                    yardage);
+        }
         task.execute();
     }
 
-    // AlgorithmTask returns a list of patterns.
+    // AlgorithmWeightOnlyTask returns a list of patterns.
     public void handleResult(PatternList result) {
         progressBar.setVisibility(View.GONE);
         printListOfPatterns(result);

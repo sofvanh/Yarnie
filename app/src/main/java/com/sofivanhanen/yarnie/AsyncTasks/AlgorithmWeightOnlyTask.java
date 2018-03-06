@@ -10,15 +10,15 @@ import com.sofivanhanen.yarnie.Utils.AlgoUtils;
  * Created by sofvanh on 19/02/18.
  */
 
-public class AlgorithmTask extends AsyncTask {
+public class AlgorithmWeightOnlyTask extends AsyncTask {
 
-    // The task that will run the knapsack algorithm on a background thread
+    // The task that will run the (weight/yardage only) knapsack algorithm on a background thread
 
     private MainActivity context;
     private PatternList patterns;
     private int maxYardage;
 
-    public AlgorithmTask(MainActivity context, PatternList patterns, int maxYardage) {
+    public AlgorithmWeightOnlyTask(MainActivity context, PatternList patterns, int maxYardage) {
         this.context = context;
         this.patterns = patterns;
         this.maxYardage = maxYardage;
