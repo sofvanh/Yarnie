@@ -27,13 +27,9 @@ public class AlgoUtils {
     }
 
     public static int calculatePatternValue(Pattern pattern) {
-        if (pattern.getPublished() == null || pattern.getProjects_count() < 1) {
-            // Pattern not correctly instantiated
-            return -1;
-        }
 
         // Final value calculation:
-        // yardage * ((5 / 5+(years since published)) * (if free, 1; if not, 0.75) + (number of projects / 200 000))
+        // yardage * ((5 / 5+(years since published)) * (if free, 1; if not, 0.5) + (number of projects / 50 000))
 
         int yardage = pattern.getYardage();
         int yearsSincePublish;
@@ -45,10 +41,10 @@ public class AlgoUtils {
         }
         double free;
         if (pattern.getFree()) free = 1;
-            else free = 0.75;
+            else free = 0.5;
         int numberOfProjects = pattern.getProjects_count();
 
-        double value = ((double)yardage * ((5.0/(5+yearsSincePublish))*(free)+(numberOfProjects/200000.0)));
+        double value = ((double)yardage * ((5.0/(5+yearsSincePublish))*(free)+(numberOfProjects/50000.0)));
 
         return (int) value;
 

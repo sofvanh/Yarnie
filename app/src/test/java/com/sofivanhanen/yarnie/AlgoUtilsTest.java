@@ -24,15 +24,8 @@ public class AlgoUtilsTest {
         pattern.setPublished(new Date(System.currentTimeMillis()-32556952000l)); // A bit over a year ago
         pattern.setProjects_count(4000);
 
-        int correctValue = 237;
+        int correctValue = 253;
 
-        assertEquals(correctValue, AlgoUtils.calculatePatternValue(pattern));
-    }
-
-    @Test
-    public void patternValue_incorrect() throws Exception {
-        Pattern pattern = new Pattern();
-        int correctValue = -1;
         assertEquals(correctValue, AlgoUtils.calculatePatternValue(pattern));
     }
 
