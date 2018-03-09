@@ -10,3 +10,4 @@ suggested patterns.
 Includes two different implementations of the knapsack algorithm. Thorougly tested as per course guidelines. Find pictures / graphs / info in Finnish in the TIRALABRA folder.
 
 Download the APK here: https://drive.google.com/open?id=1TIQjMwUMyK3MsPE_fW2nxTYfVvsOO_k_
+(Note that the link ends in an underscore. You'll probably have to copy the link into your browser to get it to work.)
