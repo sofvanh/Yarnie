@@ -61,7 +61,7 @@
     0%
   </span>
   <span class="absValue">
-    (0/ 53)
+    (0/ 58)
   </span>
 </td>
 </tr>
@@ -77,153 +77,165 @@
 <i>3</i>&nbsp;import android.os.AsyncTask;
 <i>4</i>&nbsp;import android.support.v7.app.AppCompatActivity;
 <i>5</i>&nbsp;import android.os.Bundle;
-<i>6</i>&nbsp;import android.view.View;
-<i>7</i>&nbsp;import android.view.animation.AnimationUtils;
-<i>8</i>&nbsp;import android.widget.ArrayAdapter;
-<i>9</i>&nbsp;import android.widget.EditText;
-<i>10</i>&nbsp;import android.widget.ProgressBar;
-<i>11</i>&nbsp;import android.widget.Spinner;
-<i>12</i>&nbsp;import android.widget.TextView;
-<i>13</i>&nbsp;import android.widget.Toast;
-<i>14</i>&nbsp;
-<i>15</i>&nbsp;import com.sofivanhanen.yarnie.API.FullPatternsResult;
-<i>16</i>&nbsp;import com.sofivanhanen.yarnie.AsyncTasks.AlgorithmTask;
-<i>17</i>&nbsp;import com.sofivanhanen.yarnie.AsyncTasks.GetDetailedPatternsTask;
-<i>18</i>&nbsp;import com.sofivanhanen.yarnie.AsyncTasks.GetPatternsTask;
-<i>19</i>&nbsp;import com.sofivanhanen.yarnie.API.PatternsSearchResult;
-<i>20</i>&nbsp;import com.sofivanhanen.yarnie.Data.Pattern;
-<i>21</i>&nbsp;import com.sofivanhanen.yarnie.Data.PatternList;
-<i>22</i>&nbsp;import com.sofivanhanen.yarnie.Utils.AlgoUtils;
-<i>23</i>&nbsp;
-<i>24</i>&nbsp;import java.util.List;
-<i>25</i>&nbsp;
-<b class="nc"><i>26</i>&nbsp;public class MainActivity extends AppCompatActivity {</b>
-<i>27</i>&nbsp;
-<i>28</i>&nbsp;    EditText amountOfYarnEditText;
-<i>29</i>&nbsp;    int yarnAmount;
-<i>30</i>&nbsp;    Spinner yardsOrMetersSpinner;
-<i>31</i>&nbsp;    boolean meters;
-<i>32</i>&nbsp;    Spinner yarnWeightSpinner;
-<i>33</i>&nbsp;    ProgressBar progressBar;
-<i>34</i>&nbsp;    TextView resultTextView;
-<i>35</i>&nbsp;
-<b class="nc"><i>36</i>&nbsp;    AsyncTask task = null;</b>
-<i>37</i>&nbsp;
-<i>38</i>&nbsp;    @Override
-<i>39</i>&nbsp;    protected void onCreate(Bundle savedInstanceState) {
-<b class="nc"><i>40</i>&nbsp;        super.onCreate(savedInstanceState);</b>
-<b class="nc"><i>41</i>&nbsp;        setContentView(R.layout.activity_main);</b>
-<i>42</i>&nbsp;
-<b class="nc"><i>43</i>&nbsp;        amountOfYarnEditText = findViewById(R.id.et_amount_of_yarn);</b>
-<i>44</i>&nbsp;
-<b class="nc"><i>45</i>&nbsp;        yardsOrMetersSpinner = findViewById(R.id.spinner_yards_meters);</b>
-<b class="nc"><i>46</i>&nbsp;        ArrayAdapter&lt;CharSequence&gt; adapterYards = ArrayAdapter.createFromResource(this,</b>
-<i>47</i>&nbsp;                R.array.meters_yards_array, R.layout.support_simple_spinner_dropdown_item);
-<b class="nc"><i>48</i>&nbsp;        adapterYards.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);</b>
-<b class="nc"><i>49</i>&nbsp;        yardsOrMetersSpinner.setAdapter(adapterYards);</b>
-<i>50</i>&nbsp;
-<b class="nc"><i>51</i>&nbsp;        yarnWeightSpinner = findViewById(R.id.spinner_yarn_weights);</b>
-<b class="nc"><i>52</i>&nbsp;        ArrayAdapter&lt;CharSequence&gt; adapterWeights = ArrayAdapter.createFromResource(this,</b>
-<i>53</i>&nbsp;                R.array.yarn_weights_array, R.layout.support_simple_spinner_dropdown_item);
-<b class="nc"><i>54</i>&nbsp;        adapterWeights.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);</b>
-<b class="nc"><i>55</i>&nbsp;        yarnWeightSpinner.setAdapter(adapterWeights);</b>
-<i>56</i>&nbsp;
-<b class="nc"><i>57</i>&nbsp;        progressBar = findViewById(R.id.progress_bar);</b>
-<b class="nc"><i>58</i>&nbsp;        resultTextView = findViewById(R.id.tv_pattern_result);</b>
-<i>59</i>&nbsp;    }
-<i>60</i>&nbsp;
-<i>61</i>&nbsp;    public void makeToast(String text) {
-<b class="nc"><i>62</i>&nbsp;        Toast toast = Toast.makeText(this, text, Toast.LENGTH_LONG);</b>
-<b class="nc"><i>63</i>&nbsp;        toast.show();</b>
+<i>6</i>&nbsp;import android.util.Log;
+<i>7</i>&nbsp;import android.view.View;
+<i>8</i>&nbsp;import android.view.animation.AnimationUtils;
+<i>9</i>&nbsp;import android.widget.ArrayAdapter;
+<i>10</i>&nbsp;import android.widget.CheckBox;
+<i>11</i>&nbsp;import android.widget.EditText;
+<i>12</i>&nbsp;import android.widget.ProgressBar;
+<i>13</i>&nbsp;import android.widget.Spinner;
+<i>14</i>&nbsp;import android.widget.TextView;
+<i>15</i>&nbsp;import android.widget.Toast;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;import com.sofivanhanen.yarnie.api.FullPatternsResult;
+<i>18</i>&nbsp;import com.sofivanhanen.yarnie.asynctasks.AlgorithmWeightOnlyTask;
+<i>19</i>&nbsp;import com.sofivanhanen.yarnie.asynctasks.AlgorithmWithValueTask;
+<i>20</i>&nbsp;import com.sofivanhanen.yarnie.asynctasks.GetDetailedPatternsTask;
+<i>21</i>&nbsp;import com.sofivanhanen.yarnie.asynctasks.GetPatternsTask;
+<i>22</i>&nbsp;import com.sofivanhanen.yarnie.api.PatternsSearchResult;
+<i>23</i>&nbsp;import com.sofivanhanen.yarnie.data.Pattern;
+<i>24</i>&nbsp;import com.sofivanhanen.yarnie.data.PatternList;
+<i>25</i>&nbsp;import com.sofivanhanen.yarnie.utils.AlgoUtils;
+<i>26</i>&nbsp;
+<b class="nc"><i>27</i>&nbsp;public class MainActivity extends AppCompatActivity {</b>
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    EditText amountOfYarnEditText;
+<i>30</i>&nbsp;    int yarnAmount;
+<i>31</i>&nbsp;    Spinner yardsOrMetersSpinner;
+<i>32</i>&nbsp;    boolean meters;
+<i>33</i>&nbsp;    Spinner yarnWeightSpinner;
+<i>34</i>&nbsp;    CheckBox prioritizeCheckBox;
+<i>35</i>&nbsp;    boolean prioritize;
+<i>36</i>&nbsp;    ProgressBar progressBar;
+<i>37</i>&nbsp;    TextView resultTextView;
+<i>38</i>&nbsp;
+<b class="nc"><i>39</i>&nbsp;    AsyncTask task = null;</b>
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;    @Override
+<i>42</i>&nbsp;    protected void onCreate(Bundle savedInstanceState) {
+<b class="nc"><i>43</i>&nbsp;        super.onCreate(savedInstanceState);</b>
+<b class="nc"><i>44</i>&nbsp;        setContentView(R.layout.activity_main);</b>
+<i>45</i>&nbsp;
+<b class="nc"><i>46</i>&nbsp;        amountOfYarnEditText = findViewById(R.id.et_amount_of_yarn);</b>
+<i>47</i>&nbsp;
+<b class="nc"><i>48</i>&nbsp;        yardsOrMetersSpinner = findViewById(R.id.spinner_yards_meters);</b>
+<b class="nc"><i>49</i>&nbsp;        ArrayAdapter&lt;CharSequence&gt; adapterYards = ArrayAdapter.createFromResource(this,</b>
+<i>50</i>&nbsp;                R.array.meters_yards_array, R.layout.support_simple_spinner_dropdown_item);
+<b class="nc"><i>51</i>&nbsp;        adapterYards.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);</b>
+<b class="nc"><i>52</i>&nbsp;        yardsOrMetersSpinner.setAdapter(adapterYards);</b>
+<i>53</i>&nbsp;
+<b class="nc"><i>54</i>&nbsp;        yarnWeightSpinner = findViewById(R.id.spinner_yarn_weights);</b>
+<b class="nc"><i>55</i>&nbsp;        ArrayAdapter&lt;CharSequence&gt; adapterWeights = ArrayAdapter.createFromResource(this,</b>
+<i>56</i>&nbsp;                R.array.yarn_weights_array, R.layout.support_simple_spinner_dropdown_item);
+<b class="nc"><i>57</i>&nbsp;        adapterWeights.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);</b>
+<b class="nc"><i>58</i>&nbsp;        yarnWeightSpinner.setAdapter(adapterWeights);</b>
+<i>59</i>&nbsp;
+<b class="nc"><i>60</i>&nbsp;        prioritizeCheckBox = findViewById(R.id.checkbox_prioritize);</b>
+<i>61</i>&nbsp;
+<b class="nc"><i>62</i>&nbsp;        progressBar = findViewById(R.id.progress_bar);</b>
+<b class="nc"><i>63</i>&nbsp;        resultTextView = findViewById(R.id.tv_pattern_result);</b>
 <i>64</i>&nbsp;    }
 <i>65</i>&nbsp;
-<i>66</i>&nbsp;    public void handleClick(View v) {
-<b class="nc"><i>67</i>&nbsp;        if (task != null) return; // There&#39;s a task running already.</b>
-<b class="nc"><i>68</i>&nbsp;        String amount = amountOfYarnEditText.getText().toString();</b>
-<b class="nc"><i>69</i>&nbsp;        if (amount.equals(&quot;&quot;)) {</b>
-<i>70</i>&nbsp;            // User didn&#39;t input amount of yarn!
-<b class="nc"><i>71</i>&nbsp;            makeToast(&quot;Please give amount of yarn&quot;);</b>
-<i>72</i>&nbsp;            return;
-<i>73</i>&nbsp;        }
-<b class="nc"><i>74</i>&nbsp;        yarnAmount = Integer.parseInt(amount);</b>
-<b class="nc"><i>75</i>&nbsp;        meters = ((String) yardsOrMetersSpinner.getSelectedItem()).equals(&quot;Meters&quot;);</b>
-<i>76</i>&nbsp;        // Start the API request
-<b class="nc"><i>77</i>&nbsp;        progressBar.setVisibility(View.VISIBLE);</b>
-<b class="nc"><i>78</i>&nbsp;        task = new GetPatternsTask(this, (String) yarnWeightSpinner.getSelectedItem());</b>
-<b class="nc"><i>79</i>&nbsp;        task.execute();</b>
-<i>80</i>&nbsp;    }
-<i>81</i>&nbsp;
-<i>82</i>&nbsp;    // handleResult is only called after a successful query.
-<i>83</i>&nbsp;    // GetPatternsTask returns PatternsSearchResult.
-<i>84</i>&nbsp;    public void handleResult(PatternsSearchResult result) {
-<i>85</i>&nbsp;        // GetPatternsTask is useful for looking up projects by parameters.
-<i>86</i>&nbsp;        // However, the results are insufficient Pattern objects.
-<i>87</i>&nbsp;        // They do not contain all the details (for instance, the yardage.)
-<i>88</i>&nbsp;        // Therefore, we request new, detailed versions of those patterns,
-<i>89</i>&nbsp;        // searching by id.
-<i>90</i>&nbsp;        // This is a weakness in the Ravelry API.
-<b class="nc"><i>91</i>&nbsp;        task = new GetDetailedPatternsTask(this, result.getIdsAsString());</b>
-<b class="nc"><i>92</i>&nbsp;        task.execute();</b>
-<i>93</i>&nbsp;    }
-<i>94</i>&nbsp;
-<i>95</i>&nbsp;    // GetDetailedPatternsTask returns FullPatternsResult.
-<i>96</i>&nbsp;    public void handleResult(FullPatternsResult result) {
-<b class="nc"><i>97</i>&nbsp;        int yardage = yarnAmount;</b>
-<b class="nc"><i>98</i>&nbsp;        if (meters) yardage = AlgoUtils.metersToYards(yardage);</b>
-<i>99</i>&nbsp;        // We run the algorithm on a separate thread so as to not block the UI
-<b class="nc"><i>100</i>&nbsp;        task = new AlgorithmTask(this,</b>
-<b class="nc"><i>101</i>&nbsp;                result.getPatternsAsList(false),</b>
-<i>102</i>&nbsp;                yardage);
-<b class="nc"><i>103</i>&nbsp;        task.execute();</b>
-<i>104</i>&nbsp;    }
-<i>105</i>&nbsp;
-<i>106</i>&nbsp;    // AlgorithmTask returns a list of patterns.
-<i>107</i>&nbsp;    public void handleResult(PatternList result) {
-<b class="nc"><i>108</i>&nbsp;        progressBar.setVisibility(View.GONE);</b>
-<b class="nc"><i>109</i>&nbsp;        printListOfPatterns(result);</b>
-<b class="nc"><i>110</i>&nbsp;        task = null;</b>
-<i>111</i>&nbsp;    }
-<i>112</i>&nbsp;
-<i>113</i>&nbsp;    private void printListOfPatterns(PatternList patterns) {
-<b class="nc"><i>114</i>&nbsp;        StringBuilder string = new StringBuilder();</b>
-<b class="nc"><i>115</i>&nbsp;        if (patterns.isEmpty()) {</b>
-<b class="nc"><i>116</i>&nbsp;            string.append(&quot;No patterns! Try increasing the amount of yarn.&quot;);</b>
-<i>117</i>&nbsp;        } else {
-<b class="nc"><i>118</i>&nbsp;            if (meters) {</b>
-<b class="nc"><i>119</i>&nbsp;                string.append(yarnAmount + &quot; meters = &quot; + AlgoUtils.metersToYards(yarnAmount) + &quot; yards\n&quot;);</b>
-<i>120</i>&nbsp;            }
-<b class="nc"><i>121</i>&nbsp;            for (Pattern pattern : patterns) {</b>
-<b class="nc"><i>122</i>&nbsp;                string.append(pattern.getName() + &quot;, yardage: &quot; + pattern.getYardage() + &quot;\n&quot;);</b>
-<b class="nc"><i>123</i>&nbsp;            }</b>
-<b class="nc"><i>124</i>&nbsp;            string.append(patterns.getTotalYards() + &quot; yards total.&quot;);</b>
-<i>125</i>&nbsp;        }
-<b class="nc"><i>126</i>&nbsp;        setResultText(string.toString());</b>
-<i>127</i>&nbsp;    }
-<i>128</i>&nbsp;
-<i>129</i>&nbsp;    // For general API failures
-<i>130</i>&nbsp;    public void handleFailedAsyncTask() {
-<b class="nc"><i>131</i>&nbsp;        handleFailedAsyncTask(&quot;Connecting to the API failed.&quot;);</b>
-<i>132</i>&nbsp;    }
-<i>133</i>&nbsp;
-<i>134</i>&nbsp;    // For specific API failure messages
-<i>135</i>&nbsp;    public void handleFailedAsyncTask(String message) {
-<b class="nc"><i>136</i>&nbsp;        progressBar.setVisibility(View.GONE);</b>
-<b class="nc"><i>137</i>&nbsp;        makeToast(message);</b>
-<b class="nc"><i>138</i>&nbsp;        task = null;</b>
+<i>66</i>&nbsp;    public void makeToast(String text) {
+<b class="nc"><i>67</i>&nbsp;        Toast toast = Toast.makeText(this, text, Toast.LENGTH_LONG);</b>
+<b class="nc"><i>68</i>&nbsp;        toast.show();</b>
+<i>69</i>&nbsp;    }
+<i>70</i>&nbsp;
+<i>71</i>&nbsp;    public void handleClick(View v) {
+<b class="nc"><i>72</i>&nbsp;        if (task != null) return; // There&#39;s a task running already.</b>
+<b class="nc"><i>73</i>&nbsp;        String amount = amountOfYarnEditText.getText().toString();</b>
+<b class="nc"><i>74</i>&nbsp;        if (amount.equals(&quot;&quot;)) {</b>
+<i>75</i>&nbsp;            // User didn&#39;t input amount of yarn!
+<b class="nc"><i>76</i>&nbsp;            makeToast(&quot;Please give amount of yarn&quot;);</b>
+<i>77</i>&nbsp;            return;
+<i>78</i>&nbsp;        }
+<b class="nc"><i>79</i>&nbsp;        yarnAmount = Integer.parseInt(amount);</b>
+<b class="nc"><i>80</i>&nbsp;        meters = ((String) yardsOrMetersSpinner.getSelectedItem()).equals(&quot;Meters&quot;);</b>
+<b class="nc"><i>81</i>&nbsp;        prioritize = prioritizeCheckBox.isChecked();</b>
+<i>82</i>&nbsp;        // Start the API request
+<b class="nc"><i>83</i>&nbsp;        progressBar.setVisibility(View.VISIBLE);</b>
+<b class="nc"><i>84</i>&nbsp;        task = new GetPatternsTask(this, (String) yarnWeightSpinner.getSelectedItem());</b>
+<b class="nc"><i>85</i>&nbsp;        task.execute();</b>
+<i>86</i>&nbsp;    }
+<i>87</i>&nbsp;
+<i>88</i>&nbsp;    // handleResult is only called after a successful query.
+<i>89</i>&nbsp;    // GetPatternsTask returns PatternsSearchResult.
+<i>90</i>&nbsp;    public void handleResult(PatternsSearchResult result) {
+<i>91</i>&nbsp;        // GetPatternsTask is useful for looking up projects by parameters.
+<i>92</i>&nbsp;        // However, the results are insufficient Pattern objects.
+<i>93</i>&nbsp;        // They do not contain all the details (for instance, the yardage.)
+<i>94</i>&nbsp;        // Therefore, we request new, detailed versions of those patterns,
+<i>95</i>&nbsp;        // searching by id.
+<i>96</i>&nbsp;        // This is a weakness in the Ravelry API.
+<b class="nc"><i>97</i>&nbsp;        task = new GetDetailedPatternsTask(this, result.getIdsAsString());</b>
+<b class="nc"><i>98</i>&nbsp;        task.execute();</b>
+<i>99</i>&nbsp;    }
+<i>100</i>&nbsp;
+<i>101</i>&nbsp;    // GetDetailedPatternsTask returns FullPatternsResult.
+<i>102</i>&nbsp;    public void handleResult(FullPatternsResult result) {
+<b class="nc"><i>103</i>&nbsp;        int yardage = yarnAmount;</b>
+<b class="nc"><i>104</i>&nbsp;        if (meters) yardage = AlgoUtils.metersToYards(yardage);</b>
+<i>105</i>&nbsp;        // We run the algorithm on a separate thread so as to not block the UI.
+<b class="nc"><i>106</i>&nbsp;        if (prioritize) {</b>
+<b class="nc"><i>107</i>&nbsp;            task = new AlgorithmWithValueTask(this,</b>
+<b class="nc"><i>108</i>&nbsp;                    result.getPatternsAsList(false),</b>
+<i>109</i>&nbsp;                    yardage);
+<i>110</i>&nbsp;        } else {
+<b class="nc"><i>111</i>&nbsp;            task = new AlgorithmWeightOnlyTask(this,</b>
+<b class="nc"><i>112</i>&nbsp;                    result.getPatternsAsList(false),</b>
+<i>113</i>&nbsp;                    yardage);
+<i>114</i>&nbsp;        }
+<b class="nc"><i>115</i>&nbsp;        task.execute();</b>
+<i>116</i>&nbsp;    }
+<i>117</i>&nbsp;
+<i>118</i>&nbsp;    // AlgorithmWeightOnlyTask returns a list of patterns.
+<i>119</i>&nbsp;    public void handleResult(PatternList result) {
+<b class="nc"><i>120</i>&nbsp;        progressBar.setVisibility(View.GONE);</b>
+<b class="nc"><i>121</i>&nbsp;        printListOfPatterns(result);</b>
+<b class="nc"><i>122</i>&nbsp;        task = null;</b>
+<i>123</i>&nbsp;    }
+<i>124</i>&nbsp;
+<i>125</i>&nbsp;    private void printListOfPatterns(PatternList patterns) {
+<b class="nc"><i>126</i>&nbsp;        StringBuilder string = new StringBuilder();</b>
+<b class="nc"><i>127</i>&nbsp;        if (patterns.isEmpty()) {</b>
+<b class="nc"><i>128</i>&nbsp;            string.append(&quot;No patterns! Try increasing the amount of yarn.&quot;);</b>
+<i>129</i>&nbsp;        } else {
+<b class="nc"><i>130</i>&nbsp;            if (meters) {</b>
+<b class="nc"><i>131</i>&nbsp;                string.append(yarnAmount + &quot; meters = &quot; + AlgoUtils.metersToYards(yarnAmount) + &quot; yards\n&quot;);</b>
+<i>132</i>&nbsp;            }
+<b class="nc"><i>133</i>&nbsp;            for (Pattern pattern : patterns) {</b>
+<b class="nc"><i>134</i>&nbsp;                string.append(pattern.showcaseString() + &quot;\n&quot;);</b>
+<b class="nc"><i>135</i>&nbsp;            }</b>
+<b class="nc"><i>136</i>&nbsp;            string.append(patterns.getTotalYards() + &quot; yards total.&quot;);</b>
+<i>137</i>&nbsp;        }
+<b class="nc"><i>138</i>&nbsp;        setResultText(string.toString());</b>
 <i>139</i>&nbsp;    }
 <i>140</i>&nbsp;
-<i>141</i>&nbsp;    private void setResultText(String text) {
-<b class="nc"><i>142</i>&nbsp;        resultTextView.clearAnimation();</b>
-<b class="nc"><i>143</i>&nbsp;        resultTextView.setText(text);</b>
-<b class="nc"><i>144</i>&nbsp;        resultTextView.startAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));</b>
-<i>145</i>&nbsp;    }
-<i>146</i>&nbsp;}
+<i>141</i>&nbsp;    // For general API failures
+<i>142</i>&nbsp;    public void handleFailedAsyncTask() {
+<b class="nc"><i>143</i>&nbsp;        handleFailedAsyncTask(&quot;Connecting to the API failed.&quot;);</b>
+<i>144</i>&nbsp;    }
+<i>145</i>&nbsp;
+<i>146</i>&nbsp;    // For specific API failure messages
+<i>147</i>&nbsp;    public void handleFailedAsyncTask(String message) {
+<b class="nc"><i>148</i>&nbsp;        progressBar.setVisibility(View.GONE);</b>
+<b class="nc"><i>149</i>&nbsp;        makeToast(message);</b>
+<b class="nc"><i>150</i>&nbsp;        task = null;</b>
+<i>151</i>&nbsp;    }
+<i>152</i>&nbsp;
+<i>153</i>&nbsp;    private void setResultText(String text) {
+<b class="nc"><i>154</i>&nbsp;        resultTextView.clearAnimation();</b>
+<b class="nc"><i>155</i>&nbsp;        resultTextView.setText(text);</b>
+<b class="nc"><i>156</i>&nbsp;        resultTextView.startAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));</b>
+<i>157</i>&nbsp;    }
+<i>158</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2018-02-27 12:13</div>
+    <div style="float:right;">generated on 2018-03-09 21:31</div>
 </div>
 </body>
 </html>

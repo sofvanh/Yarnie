@@ -5,7 +5,7 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html id="htmlId">
 <head>
-  <title>Coverage Report :: AlgorithmTask</title>
+  <title>Coverage Report :: AlgorithmWithValueTask</title>
   <style type="text/css">
     @import "../../.css/coverage.css";
   </style>
@@ -17,10 +17,10 @@
 <div class="content">
 <div class="breadCrumbs">
     [ <a href="../../index.html">all classes</a> ]
-    [ <a href="../index.html">com.sofivanhanen.yarnie.AsyncTasks</a> ]
+    [ <a href="../index.html">com.sofivanhanen.yarnie.asynctasks</a> ]
 </div>
 
-<h1>Coverage Summary for Class: AlgorithmTask (com.sofivanhanen.yarnie.AsyncTasks)</h1>
+<h1>Coverage Summary for Class: AlgorithmWithValueTask (com.sofivanhanen.yarnie.asynctasks)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -39,7 +39,7 @@
 </th>
 </tr>
 <tr>
-  <td class="name">AlgorithmTask</td>
+  <td class="name">AlgorithmWithValueTask</td>
 <td class="coverageStat">
   <span class="percent">
     0%
@@ -72,27 +72,27 @@
 <br/>
 
 
-<div class="sourceCode"><i>1</i>&nbsp;package com.sofivanhanen.yarnie.AsyncTasks;
+<div class="sourceCode"><i>1</i>&nbsp;package com.sofivanhanen.yarnie.asynctasks;
 <i>2</i>&nbsp;
 <i>3</i>&nbsp;import android.os.AsyncTask;
 <i>4</i>&nbsp;
-<i>5</i>&nbsp;import com.sofivanhanen.yarnie.MainActivity;
-<i>6</i>&nbsp;import com.sofivanhanen.yarnie.Data.PatternList;
-<i>7</i>&nbsp;import com.sofivanhanen.yarnie.Utils.AlgoUtils;
+<i>5</i>&nbsp;import com.sofivanhanen.yarnie.data.PatternList;
+<i>6</i>&nbsp;import com.sofivanhanen.yarnie.MainActivity;
+<i>7</i>&nbsp;import com.sofivanhanen.yarnie.utils.AlgoUtils;
 <i>8</i>&nbsp;
 <i>9</i>&nbsp;/**
-<i>10</i>&nbsp; * Created by sofvanh on 19/02/18.
+<i>10</i>&nbsp; * Created by sofvanh on 06/03/18.
 <i>11</i>&nbsp; */
 <i>12</i>&nbsp;
-<i>13</i>&nbsp;public class AlgorithmTask extends AsyncTask {
+<i>13</i>&nbsp;public class AlgorithmWithValueTask extends AsyncTask {
 <i>14</i>&nbsp;
-<i>15</i>&nbsp;    // The task that will run the knapsack algorithm on a background thread
+<i>15</i>&nbsp;    // The task that will run the full knapsack algorithm on a background thread
 <i>16</i>&nbsp;
 <i>17</i>&nbsp;    private MainActivity context;
 <i>18</i>&nbsp;    private PatternList patterns;
 <i>19</i>&nbsp;    private int maxYardage;
 <i>20</i>&nbsp;
-<b class="nc"><i>21</i>&nbsp;    public AlgorithmTask(MainActivity context, PatternList patterns, int maxYardage) {</b>
+<b class="nc"><i>21</i>&nbsp;    public AlgorithmWithValueTask(MainActivity context, PatternList patterns, int maxYardage) {</b>
 <b class="nc"><i>22</i>&nbsp;        this.context = context;</b>
 <b class="nc"><i>23</i>&nbsp;        this.patterns = patterns;</b>
 <b class="nc"><i>24</i>&nbsp;        this.maxYardage = maxYardage;</b>
@@ -101,7 +101,7 @@
 <i>27</i>&nbsp;    @Override
 <i>28</i>&nbsp;    protected Object doInBackground(Object[] objects) {
 <i>29</i>&nbsp;        // This takes a while when maxYardage is large
-<b class="nc"><i>30</i>&nbsp;        return AlgoUtils.patternKnapsackWeightOnly(patterns.returnAsArray(), maxYardage);</b>
+<b class="nc"><i>30</i>&nbsp;        return AlgoUtils.patternKnapsack(patterns.returnAsArray(), maxYardage);</b>
 <i>31</i>&nbsp;    }
 <i>32</i>&nbsp;
 <i>33</i>&nbsp;    @Override
@@ -114,7 +114,7 @@
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2018-02-27 12:13</div>
+    <div style="float:right;">generated on 2018-03-09 21:31</div>
 </div>
 </body>
 </html>
