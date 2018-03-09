@@ -24,6 +24,10 @@ public class PatternList implements List<Pattern> {
         firstFreeSpot = 0;
     }
 
+    /**
+     * Returns contained patterns as an array
+     * @return The array of objects, null patterns removed
+     */
     // Can't return the 'patterns' array as it contaisn empty spaces
     public Pattern[] returnAsArray() {
         Pattern[] result = new Pattern[firstFreeSpot];
@@ -33,7 +37,11 @@ public class PatternList implements List<Pattern> {
         return result;
     }
 
-    // Creating a PatternList out of an array
+    /**
+     * Creates a PatternList object out of an array
+     * @param patterns Array of patterns
+     * @return A PatternList object
+     */
     public static PatternList PatternListFromArray(Pattern[] patterns) {
         PatternList list = new PatternList();
         for (Pattern pattern : patterns) {
@@ -44,6 +52,10 @@ public class PatternList implements List<Pattern> {
 
     // TODO: Cache these
 
+    /**
+     * Calculates total yards contained
+     * @return Number of yards as int
+     */
     public int getTotalYards() {
         int yards = 0;
         for (Pattern pattern : patterns) {
@@ -54,6 +66,10 @@ public class PatternList implements List<Pattern> {
         return yards;
     }
 
+    /**
+     * Calculates total value of contained patterns
+     * @return Total value as int
+     */
     public int getTotalValue() {
         int value = 0;
         for (Pattern pattern : patterns) {
@@ -64,16 +80,29 @@ public class PatternList implements List<Pattern> {
         return value;
     }
 
+    /**
+     * Get size of the list
+     * @return Number of contained patterns as int
+     */
     @Override
     public int size() {
         return firstFreeSpot;
     }
 
+    /**
+     * Get if empty
+     * @return True if empty, false if at least one pattern contained
+     */
     @Override
     public boolean isEmpty() {
         return firstFreeSpot == 0;
     }
 
+    /**
+     * Check if list contains a specific Pattern object
+     * @param o Pattern we're looking for
+     * @return true if contained, false otherwise
+     */
     @Override
     public boolean contains(Object o) {
         if (!o.getClass().equals(Pattern.class)) {
@@ -89,6 +118,10 @@ public class PatternList implements List<Pattern> {
         return false;
     }
 
+    /**
+     * Get an iterator of the contained Pattern objects
+     * @return An iterator of patterns
+     */
     @NonNull
     @Override
     public Iterator<Pattern> iterator() {
@@ -112,6 +145,11 @@ public class PatternList implements List<Pattern> {
         };
     }
 
+    /**
+     * Add a pattern
+     * @param pattern Pattern to add
+     * @return Always true
+     */
     @Override
     public boolean add(Pattern pattern) {
         if (firstFreeSpot == patterns.length) {
@@ -122,6 +160,9 @@ public class PatternList implements List<Pattern> {
         return true;
     }
 
+    /**
+     * For when array is full
+     */
     private void expandList() {
         Pattern[] newArray = new Pattern[patterns.length * 2];
         for (int i = 0; i < firstFreeSpot; i++) {
@@ -130,6 +171,11 @@ public class PatternList implements List<Pattern> {
         patterns = newArray;
     }
 
+    /**
+     * Check if this PatternList contains everything in the given collection
+     * @param collection Items to check
+     * @return True if all items are contained, false otherwise
+     */
     @Override
     public boolean containsAll(@NonNull Collection<?> collection) {
         for (Object object : collection) {
@@ -137,14 +183,28 @@ public class PatternList implements List<Pattern> {
         }
         return true;
     }
+
+    /**
+     * Checks if contains same objects as the defined PatternList
+     * @param o Object we check
+     * @return True if o is a PatternList containing all the same patterns, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (o.getClass() != PatternList.class) return false;
         else {
-            return containsAll((PatternList) o);
+            if (containsAll((PatternList) o)) {
+                return ((PatternList)o).containsAll(PatternList.this);
+            }
+            return false;
         }
     }
 
+    /**
+     * Get Pattern at index
+     * @param i Index to check
+     * @return Pattern object specified, or possibly null if index not filled
+     */
     @Override
     public Pattern get(int i) {
         return patterns[i];

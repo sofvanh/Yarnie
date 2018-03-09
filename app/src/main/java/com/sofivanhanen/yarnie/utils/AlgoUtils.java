@@ -10,7 +10,12 @@ import com.sofivanhanen.yarnie.data.PatternList;
 
 public class AlgoUtils {
 
-    // Helper method for finding the set with biggest yardage
+    /**
+     * Helper method for finding the set with biggest yardage
+     * @param a First PatternList to compare
+     * @param b Second PatternList to compare
+     * @return Returns either a or b, depending which is holding more total yardage
+     */
     private static PatternList maxYardage(PatternList a, PatternList b) {
         int aYards = a.getTotalYards();
         int bYards = b.getTotalYards();
@@ -18,7 +23,12 @@ public class AlgoUtils {
         else return b;
     }
 
-    // Helper method for finding the set with biggest value
+    /**
+     *  Helper method for finding the set with biggest value
+     * @param a First PatternList to compare
+     * @param b Second PatternList to compare
+     * @return Returns either a or b, depending which is holding bigger total value
+     */
     private static PatternList maxValue(PatternList a, PatternList b) {
         int aValue = a.getTotalValue();
         int bValue = b.getTotalValue();
@@ -26,6 +36,11 @@ public class AlgoUtils {
         else return b;
     }
 
+    /**
+     * Calculates the custom value of a Pattern object
+     * @param pattern The pattern whose value we want to calculate
+     * @return Newly calculated value
+     */
     public static int calculatePatternValue(Pattern pattern) {
 
         // Final value calculation:
@@ -50,14 +65,25 @@ public class AlgoUtils {
 
     }
 
-    // First algorithm that works with Pattern objects
-    // Uses the recursive knapsack algorithm in KKKK (Kisakoodarin käsikirja)
+    /**
+     * Knapsack alorithm for Pattern objects where value is yardage. Uses the recursive knapsack algorithm in KKKK (Kisakoodarin käsikirja)
+     * @param patterns Array of available patterns
+     * @param maxYardage Max total yardage of result
+     * @return The resulting collection of patterns as PatternList
+     */
     public static PatternList patternKnapsackWeightOnly(Pattern[] patterns, int maxYardage) {
         if (patterns.length == 0 || maxYardage <= 0) return new PatternList();
         PatternList list = recursiveKnapsackWeightOnly(patterns, patterns.length-1, maxYardage);
         return list;
     }
 
+    /**
+     * Recursive method for patternKnapsackWeightOnly
+     * @param patterns Collection of patterns
+     * @param maxIndex Index we're at (last index at start)
+     * @param maxYards Amount of yards we can still use (max yards - used yards)
+     * @return Calculated PatternList result up to maxIndex
+     */
     private static PatternList recursiveKnapsackWeightOnly(Pattern[] patterns, int maxIndex, int maxYards) {
         if (maxIndex == -1) {
             return new PatternList();
@@ -75,13 +101,25 @@ public class AlgoUtils {
         return (int)(meters * ONE_METER_IN_YARDS);
     }
 
-    // Same as above, except now we use pattern's value as value
+    /**
+     * Knapsack algorithm for Pattern objects using custom value
+     * @param patterns Array of available patterns
+     * @param maxYardage Max total yardage of result
+     * @return The resulting collection of patterns as PatternList
+     */
     public static PatternList patternKnapsack(Pattern[] patterns, int maxYardage) {
         if (patterns.length == 0 || maxYardage <= 0) return new PatternList();
         PatternList list = recursiveKnapsack(patterns, patterns.length-1, maxYardage);
         return list;
     }
 
+    /**
+     * Recursive method for patternKnapsack
+     * @param patterns Collection of patterns
+     * @param maxIndex Index we're at (last index at start)
+     * @param maxYards Amount of yards we can still use (max yards - used yards)
+     * @return Calculated PatternList result up to maxIndex
+     */
     private static PatternList recursiveKnapsack(Pattern[] patterns, int maxIndex, int maxYards) {
         if (maxIndex == -1) {
             return new PatternList();

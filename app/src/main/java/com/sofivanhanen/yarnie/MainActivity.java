@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
         int yardage = yarnAmount;
         if (meters) yardage = AlgoUtils.metersToYards(yardage);
         // We run the algorithm on a separate thread so as to not block the UI.
-        Log.d("!!!", prioritize + "");
         if (prioritize) {
             task = new AlgorithmWithValueTask(this,
                     result.getPatternsAsList(false),
